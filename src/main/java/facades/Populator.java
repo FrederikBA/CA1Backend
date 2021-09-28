@@ -6,7 +6,11 @@
 package facades;
 
 import dtos.RenameMeDTO;
+import entities.Hobby;
+import entities.Person;
 import entities.RenameMe;
+
+import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import utils.EMF_Creator;
 
@@ -17,10 +21,30 @@ import utils.EMF_Creator;
 public class Populator {
     public static void populate(){
         EntityManagerFactory emf = EMF_Creator.createEntityManagerFactory();
-        FacadeExample fe = FacadeExample.getFacadeExample(emf);
-        fe.create(new RenameMeDTO(new RenameMe("First 1", "Last 1")));
-        fe.create(new RenameMeDTO(new RenameMe("First 2", "Last 2")));
-        fe.create(new RenameMeDTO(new RenameMe("First 3", "Last 3")));
+
+
+
+        Person p1 = new Person("Rasmush22@live.dk", "rasmus", "Hansen");
+        Person p2 = new Person("Jønkemail.com", "Jønke", "larsen");
+
+        Hobby h1 = new Hobby("svømning", "bare svømme svømme svømme");
+        Hobby h2 = new Hobby("Fencing", "sword play");
+
+
+        p1.addHobby(h1);
+        p1.addHobby(h2);
+        p2.addHobby(h2);
+
+        EntityManager em = emf.createEntityManager();
+        try {
+            em.getTransaction().begin();
+            em.persist(p1);
+            em.persist(p2);
+            em.getTransaction().commit();
+        } finally {
+            em.close();
+        }
+
     }
     
     public static void main(String[] args) {
