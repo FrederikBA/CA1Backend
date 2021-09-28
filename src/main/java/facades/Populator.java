@@ -32,12 +32,17 @@ public class Populator {
         Phone huawei = new Phone("666666", "This phone is chinese");
         Phone iPhone = new Phone("99887766", "This phone is new");
 
-        Address lyngby = new Address("Hos Frederik", "Det er dyrt");
-        Address valby = new Address("Hos Janus", "Det er langt væk");
+        Address lyngbyHovedgade = new Address("Hos Frederik", "Det er dyrt");
+        Address gyldendalsvej = new Address("Hos Rasmus", "Der bor Rasmus");
+        Address damsboVaenge = new Address("Hos Janus", "Det er langt væk");
 
-        valby.addPerson(p3);
-        valby.addPerson(p4);
-        lyngby.addPerson(p5);
+        CityInfo c1 = new CityInfo(2500, "Søborg");
+        CityInfo c2 = new CityInfo(4500, "Haslev");
+
+
+        damsboVaenge.addPerson(p3);
+        damsboVaenge.addPerson(p4);
+        lyngbyHovedgade.addPerson(p5);
 
         p1.addPhone(nokia);
         p1.addPhone(iPhone);
@@ -48,13 +53,20 @@ public class Populator {
         p1.addHobby(h2);
         p2.addHobby(h2);
 
+        c1.addAddress(lyngbyHovedgade);
+        c1.addAddress(gyldendalsvej);
+        c2.addAddress(damsboVaenge);
+
         EntityManager em = emf.createEntityManager();
         try {
             em.getTransaction().begin();
             em.persist(p1);
             em.persist(p2);
-            em.persist(valby);
-            em.persist(lyngby);
+            em.persist(damsboVaenge);
+            em.persist(lyngbyHovedgade);
+            em.persist(gyldendalsvej);
+            em.persist(c1);
+            em.persist(c2);
             em.getTransaction().commit();
         } finally {
             em.close();

@@ -8,6 +8,7 @@
         <class>entities.Hobby</class>
         <class>entities.Phone</class>
         <class>entities.Address</class>
+        <class>entities.CityInfo</class>
         <!--    <class>entities.RenameMe</class>-->
         <exclude-unlisted-classes>false</exclude-unlisted-classes>
         <properties>
