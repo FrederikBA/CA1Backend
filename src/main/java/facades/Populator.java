@@ -6,29 +6,42 @@
 package facades;
 
 import dtos.RenameMeDTO;
-import entities.Hobby;
-import entities.Person;
-import entities.RenameMe;
+import entities.*;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+
 import utils.EMF_Creator;
 
-/**
- *
- * @author tha
- */
-public class Populator {
-    public static void populate(){
-        EntityManagerFactory emf = EMF_Creator.createEntityManagerFactory();
 
+public class Populator {
+    public static void populate() {
+        EntityManagerFactory emf = EMF_Creator.createEntityManagerFactory();
 
 
         Person p1 = new Person("Rasmush22@live.dk", "rasmus", "Hansen");
         Person p2 = new Person("Jønkemail.com", "Jønke", "larsen");
+        Person p3 = new Person("Janusmail@mail.dk", "Janus", "Stivang");
+        Person p4 = new Person("Kianmail@mail.dk", "Kian", "Cronfalk");
+        Person p5 = new Person("Frederikmail@mail.dk", "Frederik", "Andersen");
 
         Hobby h1 = new Hobby("svømning", "bare svømme svømme svømme");
         Hobby h2 = new Hobby("Fencing", "sword play");
+
+        Phone nokia = new Phone("11223344", "This phone is old");
+        Phone huawei = new Phone("666666", "This phone is chinese");
+        Phone iPhone = new Phone("99887766", "This phone is new");
+
+        Address lyngby = new Address("Hos Frederik", "Det er dyrt");
+        Address valby = new Address("Hos Janus", "Det er langt væk");
+
+        valby.addPerson(p3);
+        valby.addPerson(p4);
+        lyngby.addPerson(p5);
+
+        p1.addPhone(nokia);
+        p1.addPhone(iPhone);
+        p2.addPhone(huawei);
 
 
         p1.addHobby(h1);
@@ -40,13 +53,15 @@ public class Populator {
             em.getTransaction().begin();
             em.persist(p1);
             em.persist(p2);
+            em.persist(valby);
+            em.persist(lyngby);
             em.getTransaction().commit();
         } finally {
             em.close();
         }
 
     }
-    
+
     public static void main(String[] args) {
         populate();
     }

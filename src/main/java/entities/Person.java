@@ -20,6 +20,12 @@ public class Person {
     @ManyToMany(mappedBy = "persons", cascade = CascadeType.PERSIST)
     private List<Hobby> hobbies = new ArrayList<>();
 
+    @OneToMany(mappedBy = "person", cascade = CascadeType.PERSIST)
+    private List<Phone> phones = new ArrayList<>();
+
+    @ManyToOne
+    private Address address;
+
     public Person() {
     }
 
@@ -70,10 +76,25 @@ public class Person {
         this.hobbies = hobbies;
     }
 
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
     public void addHobby(Hobby hobby) {
         if (hobby != null) {
             this.hobbies.add(hobby);
             hobby.getPersons().add(this);
+        }
+    }
+
+    public void addPhone(Phone phone) {
+        this.phones.add(phone);
+        if (phone != null) {
+            phone.setPerson(this);
         }
     }
 }
