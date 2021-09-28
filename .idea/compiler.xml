@@ -15,7 +15,11 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+<<<<<<< HEAD
       <module name="CA1Krak" options="-endorseddirs C:\Users\Janus\Datamatiker3Sem\CA1Krak\target/endorsed" />
+=======
+      <module name="CA1Krak" options="-endorseddirs &quot;D:\3rd semester\CA1\CA1Krak\target/endorsed&quot;" />
+>>>>>>> 6dd416e308e5d7b2da3fb4a4279f12b046b50504
     </option>
   </component>
 </project>
