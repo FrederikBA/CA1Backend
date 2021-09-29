@@ -25,8 +25,8 @@ public class Populator {
         Person p4 = new Person("Kianmail@mail.dk", "Kian", "Cronfalk");
         Person p5 = new Person("Frederikmail@mail.dk", "Frederik", "Andersen");
 
-        Hobby h1 = new Hobby("svømning", "bare svømme svømme svømme");
-        Hobby h2 = new Hobby("Fencing", "sword play");
+        Hobby h1 = new Hobby("svømning", "wiki.com", "hole body", "swimming");
+        Hobby h2 = new Hobby("Fencing", "wiki.com","arms", "sword play");
 
         Phone nokia = new Phone("11223344", "This phone is old");
         Phone huawei = new Phone("666666", "This phone is chinese");
