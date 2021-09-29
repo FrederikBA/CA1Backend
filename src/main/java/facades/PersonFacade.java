@@ -2,7 +2,6 @@ package facades;
 
 import dtos.PersonDTO;
 import dtos.PersonsDTO;
-import entities.Hobby;
 import entities.Person;
 
 import javax.persistence.EntityManager;
@@ -22,14 +21,26 @@ public class PersonFacade {
         }
         return instance;
     }
-
-    public PersonDTO addPerson(String email, String fName, String lName) {
+    //TODO add hobbies, phone and address in this method or in seperate methods
+    public PersonDTO addPerson(PersonDTO p) {
         EntityManager em = emf.createEntityManager();
         try {
-            Person person = new Person(email, fName, lName);
+            Person person = new Person(p.getEmail(), p.getFirstName(), p.getLastName(), p.getHobbies(), p.getPhones(), p.getAddress());
             em.getTransaction().begin();
             em.persist(person);
             em.getTransaction().commit();
+            return new PersonDTO(person);
+        } finally {
+            em.close();
+        }
+    }
+
+    public PersonDTO getPersonByPhoneNumber(String number) {
+        EntityManager em = emf.createEntityManager();
+        try {
+            TypedQuery<Person> query = em.createQuery("SELECT p from Person p JOIN p.phones ph WHERE ph.number = :number", Person.class);
+            query.setParameter("number", number);
+            Person person = query.getSingleResult();
             return new PersonDTO(person);
         } finally {
             em.close();
@@ -76,6 +87,18 @@ public class PersonFacade {
             query.setParameter("hobby", hobby);
             Long numberOfPeople = query.getSingleResult();
             return numberOfPeople;
+        } finally {
+            em.close();
+        }
+    }
+
+    public PersonsDTO getPersonsByCity(int zipCode) {
+        EntityManager em = emf.createEntityManager();
+        try {
+            TypedQuery<Person> query = em.createQuery("SELECT p FROM Person p JOIN p.address a WHERE a.cityInfo.zipCode = :zipCode", Person.class);
+            query.setParameter("zipCode", zipCode);
+            List<Person> personList = query.getResultList();
+            return new PersonsDTO(personList);
         } finally {
             em.close();
         }

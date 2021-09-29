@@ -38,5 +38,19 @@ class PersonFacadeTest {
         long actual = facade.getNumberOfPeopleByHobby("Fencing");
         assertEquals(expected, actual);
     }
+
+    @Test
+    public void getPersonsByCityTest() {
+        int expected = 2;
+        int actual = facade.getPersonsByCity(4500).getSize();
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void getPersonByPhoneNumber() {
+        int expected = 2;
+        int actual = facade.getPersonByPhoneNumber("11223344").getHobbies().size();
+        assertEquals(expected, actual);
+    }
     */
 }
