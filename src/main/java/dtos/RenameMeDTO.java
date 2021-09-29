@@ -6,13 +6,10 @@
 package dtos;
 
 import entities.RenameMe;
+
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *
- * @author tha
- */
 public class RenameMeDTO {
     private long id;
     private String str1;
@@ -22,16 +19,16 @@ public class RenameMeDTO {
         this.str1 = dummyStr1;
         this.str2 = dummyStr2;
     }
-    
-    public static List<RenameMeDTO> getDtos(List<RenameMe> rms){
+
+    public static List<RenameMeDTO> getDtos(List<RenameMe> rms) {
         List<RenameMeDTO> rmdtos = new ArrayList();
-        rms.forEach(rm->rmdtos.add(new RenameMeDTO(rm)));
+        rms.forEach(rm -> rmdtos.add(new RenameMeDTO(rm)));
         return rmdtos;
     }
 
 
     public RenameMeDTO(RenameMe rm) {
-        if(rm.getId() != null)
+        if (rm.getId() != null)
             this.id = rm.getId();
         this.str1 = rm.getDummyStr1();
         this.str2 = rm.getDummyStr2();
@@ -57,10 +54,6 @@ public class RenameMeDTO {
     public String toString() {
         return "RenameMeDTO{" + "id=" + id + ", str1=" + str1 + ", str2=" + str2 + '}';
     }
-    
-    
-    
-    
-    
-    
+
+
 }
