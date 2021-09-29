@@ -73,14 +73,32 @@ class PersonFacadeTest {
             em.createNativeQuery("alter table PERSON AUTO_INCREMENT = 1").executeUpdate();
             em.createNativeQuery("alter table HOBBY AUTO_INCREMENT = 1").executeUpdate();
             em.createNativeQuery("alter table PHONE AUTO_INCREMENT = 1").executeUpdate();
+            em.createNativeQuery("alter table ADDRESS AUTO_INCREMENT = 1").executeUpdate();
+            em.createNativeQuery("alter table CITYINFO AUTO_INCREMENT = 1").executeUpdate();
             em.createNamedQuery("Hobby.deleteAllRows").executeUpdate();
             em.createNativeQuery("alter table PERSON AUTO_INCREMENT = 1").executeUpdate();
             em.createNativeQuery("alter table HOBBY AUTO_INCREMENT = 1").executeUpdate();
             em.createNativeQuery("alter table PHONE AUTO_INCREMENT = 1").executeUpdate();
+            em.createNativeQuery("alter table ADDRESS AUTO_INCREMENT = 1").executeUpdate();
+            em.createNativeQuery("alter table CITYINFO AUTO_INCREMENT = 1").executeUpdate();
             em.createNamedQuery("Person.deleteAllRows").executeUpdate();
             em.createNativeQuery("alter table PERSON AUTO_INCREMENT = 1").executeUpdate();
             em.createNativeQuery("alter table HOBBY AUTO_INCREMENT = 1").executeUpdate();
             em.createNativeQuery("alter table PHONE AUTO_INCREMENT = 1").executeUpdate();
+            em.createNativeQuery("alter table ADDRESS AUTO_INCREMENT = 1").executeUpdate();
+            em.createNativeQuery("alter table CITYINFO AUTO_INCREMENT = 1").executeUpdate();
+            em.createNamedQuery("Address.deleteAllRows").executeUpdate();
+            em.createNativeQuery("alter table PERSON AUTO_INCREMENT = 1").executeUpdate();
+            em.createNativeQuery("alter table HOBBY AUTO_INCREMENT = 1").executeUpdate();
+            em.createNativeQuery("alter table PHONE AUTO_INCREMENT = 1").executeUpdate();
+            em.createNativeQuery("alter table ADDRESS AUTO_INCREMENT = 1").executeUpdate();
+            em.createNativeQuery("alter table CITYINFO AUTO_INCREMENT = 1").executeUpdate();
+            em.createNamedQuery("CityInfo.deleteAllRows").executeUpdate();
+            em.createNativeQuery("alter table PERSON AUTO_INCREMENT = 1").executeUpdate();
+            em.createNativeQuery("alter table HOBBY AUTO_INCREMENT = 1").executeUpdate();
+            em.createNativeQuery("alter table PHONE AUTO_INCREMENT = 1").executeUpdate();
+            em.createNativeQuery("alter table ADDRESS AUTO_INCREMENT = 1").executeUpdate();
+            em.createNativeQuery("alter table CITYINFO AUTO_INCREMENT = 1").executeUpdate();
 
             em.persist(p1);
             em.persist(p2);
@@ -100,7 +118,6 @@ class PersonFacadeTest {
 //        Remove any data after each test was run
     }
 
-    /*
 
     @Test
     public void getAllPersonsTest() {
@@ -108,14 +125,16 @@ class PersonFacadeTest {
         int actual = facade.getAllPersons().getSize();
         assertEquals(expected, actual);
     }
-    //TODO Fails because persons are persisted at ar andom order(?)
+
+    //TODO Fails because persons are persisted at a random order(?)
+    /*
     @Test
     public void getPersonByIdTest() {
         String expected = "Janus";
         String actual = facade.getPersonById(1).getFirstName();
         assertEquals(expected, actual);
     }
-
+*/
     @Test
     public void getPersonsByHobby() {
         int expected = 2;
@@ -143,7 +162,7 @@ class PersonFacadeTest {
         int actual = facade.getPersonByPhoneNumber("11223344").getHobbies().size();
         assertEquals(expected, actual);
     }
-*/
+
     //TODO Create addPersonTest + deletePersonTest + editPersonTest
 
 }
