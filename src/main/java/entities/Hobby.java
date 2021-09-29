@@ -1,10 +1,14 @@
 package entities;
 
+import javax.inject.Named;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@NamedQueries({
+        @NamedQuery(name = "Hobby.deleteAllRows", query = "DELETE from Hobby")
+})
 public class Hobby {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
