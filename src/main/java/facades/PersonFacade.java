@@ -2,7 +2,6 @@ package facades;
 
 import dtos.PersonDTO;
 import dtos.PersonsDTO;
-import entities.Hobby;
 import entities.Person;
 
 import javax.persistence.EntityManager;
@@ -76,6 +75,18 @@ public class PersonFacade {
             query.setParameter("hobby", hobby);
             Long numberOfPeople = query.getSingleResult();
             return numberOfPeople;
+        } finally {
+            em.close();
+        }
+    }
+
+    public PersonsDTO getPersonsByCity(int zipCode) {
+        EntityManager em = emf.createEntityManager();
+        try {
+            TypedQuery<Person> query = em.createQuery("SELECT p FROM Person p JOIN p.address a WHERE a.cityInfo.zipCode = :zipCode", Person.class);
+            query.setParameter("zipCode", zipCode);
+            List<Person> personList = query.getResultList();
+            return new PersonsDTO(personList);
         } finally {
             em.close();
         }
