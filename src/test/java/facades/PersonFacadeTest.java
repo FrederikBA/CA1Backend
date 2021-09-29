@@ -117,7 +117,7 @@ class PersonFacadeTest {
     public void tearDown() {
 //        Remove any data after each test was run
     }
-
+/*
 
     @Test
     public void getAllPersonsTest() {
@@ -125,7 +125,7 @@ class PersonFacadeTest {
         int actual = facade.getAllPersons().getSize();
         assertEquals(expected, actual);
     }
-
+*/
     //TODO Fails because persons are persisted at a random order(?)
     /*
     @Test
