@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@NamedQuery(name = "Address.deleteAllRows", query = "DELETE from Address")
 public class Address {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
