@@ -10,7 +10,7 @@ import javax.persistence.EntityManagerFactory;
 import static org.junit.jupiter.api.Assertions.*;
 
 class PersonFacadeTest {
-    private static EntityManagerFactory emf = EMF_Creator.createEntityManagerFactory();
+    private static EntityManagerFactory emf;
     private static PersonFacade facade;
 
     @BeforeAll
@@ -117,7 +117,7 @@ class PersonFacadeTest {
     public void tearDown() {
 //        Remove any data after each test was run
     }
-/*
+
 
     @Test
     public void getAllPersonsTest() {
@@ -125,9 +125,9 @@ class PersonFacadeTest {
         int actual = facade.getAllPersons().getSize();
         assertEquals(expected, actual);
     }
-*/
+
     //TODO Fails because persons are persisted at a random order(?)
-    /*
+/*
     @Test
     public void getPersonByIdTest() {
         String expected = "Janus";
@@ -135,7 +135,7 @@ class PersonFacadeTest {
         assertEquals(expected, actual);
     }
 */
-    /*
+
     @Test
     public void getPersonsByHobby() {
         int expected = 2;
@@ -163,7 +163,7 @@ class PersonFacadeTest {
         int actual = facade.getPersonByPhoneNumber("11223344").getHobbies().size();
         assertEquals(expected, actual);
     }
-*/
+
     //TODO Create addPersonTest + deletePersonTest + editPersonTest
 
 }
