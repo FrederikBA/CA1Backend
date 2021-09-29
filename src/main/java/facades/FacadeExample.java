@@ -52,7 +52,6 @@ public class FacadeExample {
         return new RenameMeDTO(em.find(RenameMe.class, id));
     }
     
-    //TODO Remove/Change this before use
     public long getRenameMeCount(){
         EntityManager em = emf.createEntityManager();
         try{

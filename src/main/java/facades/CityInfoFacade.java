@@ -12,18 +12,10 @@ import javax.persistence.TypedQuery;
 import java.util.List;
 
 public class CityInfoFacade {
-
     private static CityInfoFacade instance;
     private static EntityManagerFactory emf;
 
-    //Private Constructor to ensure Singleton
-    private CityInfoFacade() {
-    }
 
-    /**
-     * @param _emf
-     * @return an instance of this facade class.
-     */
     public static CityInfoFacade getCityInfoFacade(EntityManagerFactory _emf) {
         if (instance == null) {
             emf = _emf;
@@ -32,41 +24,59 @@ public class CityInfoFacade {
         return instance;
     }
 
-    private EntityManager getEntityManager() {
-        return emf.createEntityManager();
-    }
 
 
     public List<CityInfoDTO> getAllCityInfo() {
         EntityManager em = emf.createEntityManager();
         try {
             em.getTransaction().begin();
-            TypedQuery<CityInfo> query = em.createQuery("SELECT C FROM CityInfo c", CityInfo.class);
+            TypedQuery<CityInfo> query = em.createQuery("SELECT c FROM CityInfo c", CityInfo.class);
             List<CityInfo> cityInfoResultList = query.getResultList();
             em.getTransaction().commit();
 
             return (List<CityInfoDTO>) (List<?>) cityInfoResultList;
         } finally {
             em.close();
-            emf.close();
         }
     }
 
-    public CityInfoDTO getById(int id) {
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("pu");
+    public CityInfoDTO getCityById(int id) {
         EntityManager em = emf.createEntityManager();
         try {
             CityInfo cityInfo = em.find(CityInfo.class, id);
             return new CityInfoDTO(cityInfo);
         } finally {
             em.close();
-            emf.close();
         }
-        //list of all zipcodes in denmark
-        //getbyId
-        //getbyName
-        //metoder der kører cityInfoScrpt
-
-
     }
+
+    public CityInfoDTO getCityByName(String name) {
+        EntityManager em = emf.createEntityManager();
+
+        try {
+            TypedQuery<CityInfo> query = em.createQuery("SELECT c FROM CityInfo c WHERE c.city = :name", CityInfo.class);
+            query.setParameter("name", name);
+            CityInfo cityInfo = query.getSingleResult();
+            return new CityInfoDTO(cityInfo);
+        } finally {
+            em.close();
+        }
+    }
+
+    //TODO  not able to read zipcodes numbered 0800 fix it
+    public List<Integer> getDanishZipCodes() {
+        EntityManager em = emf.createEntityManager();
+        try {
+            TypedQuery<Integer> query = em.createQuery("SELECT c.zipCode FROM CityInfo c WHERE c.zipCode > 999 AND c.zipCode NOT BETWEEN 3900 AND 3999 AND c.zipCode < 10000", Integer.class);
+            List<Integer> danishZipCode = query.getResultList();
+            return danishZipCode;
+        } finally {
+            em.close();
+        }
+    }
+
+
 }
+
+
+//metoder der kører cityInfoScrpt
