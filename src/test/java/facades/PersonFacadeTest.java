@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class PersonFacadeTest {
     EntityManagerFactory emf = EMF_Creator.createEntityManagerFactory();
     PersonFacade facade = PersonFacade.getPersonFacade(emf);
-/*
+
     @Test
     public void getAllPersonsTest() {
         int expected = 5;
@@ -43,7 +43,13 @@ class PersonFacadeTest {
     public void getPersonsByCityTest() {
         int expected = 2;
         int actual = facade.getPersonsByCity(4500).getSize();
-        assertEquals(expected,actual);
+        assertEquals(expected, actual);
     }
-    */
+
+    @Test
+    public void getPersonByPhoneNumber() {
+        int expected = 2;
+        int actual = facade.getPersonByPhoneNumber("11223344").getHobbies().size();
+        assertEquals(expected, actual);
+    }
 }
