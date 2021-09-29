@@ -106,6 +106,7 @@ class PersonFacadeTest {
         int actual = facade.getAllPersons().getSize();
         assertEquals(expected, actual);
     }
+    //TODO Fails because persons are persisted at ar andom order(?)
 /*
     @Test
     public void getPersonByIdTest() {
