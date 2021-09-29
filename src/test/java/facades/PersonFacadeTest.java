@@ -164,12 +164,6 @@ class PersonFacadeTest {
         assertEquals(expected, actual);
     }
 */
-    @Test
-    public void justTesting() {
-        int expected = 2;
-        int actual = 2;
-        assertEquals(expected, actual);
-    }
     //TODO Create addPersonTest + deletePersonTest + editPersonTest
 
 }
