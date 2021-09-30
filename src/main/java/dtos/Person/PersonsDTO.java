@@ -1,5 +1,6 @@
-package dtos;
+package dtos.Person;
 
+import dtos.Person.PersonDTO;
 import entities.Person;
 
 import java.util.ArrayList;

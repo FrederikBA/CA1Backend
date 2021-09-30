@@ -1,11 +1,14 @@
 package facades;
 
-import dtos.PersonDTO;
-import dtos.PersonsDTO;
-import entities.Person;
+import dtos.Hobby.HobbyDTO;
+import dtos.Person.PersonDTO;
+import dtos.Person.PersonsDTO;
+import dtos.PhoneDTO;
+import entities.*;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 import javax.ws.rs.WebApplicationException;
 import java.util.List;
@@ -21,18 +24,106 @@ public class PersonFacade {
         }
         return instance;
     }
-    //TODO add hobbies, phone and address in this method or in seperate methods
-    public PersonDTO addPerson(PersonDTO p) {
+/*
+    public PersonDTO addPerson(PersonDTO personDTO) {
         EntityManager em = emf.createEntityManager();
+        Person person = new Person(personDTO.getEmail(), personDTO.getFirstName(), personDTO.getLastName());
         try {
-            Person person = new Person(p.getEmail(), p.getFirstName(), p.getLastName(), p.getHobbies(), p.getPhones(), p.getAddress());
+
+
+            //Add Hobby
+            for (HobbyDTO hobbyDTO : personDTO.getHobbies()) {
+                TypedQuery<Hobby> query = em.createQuery("SELECT h from Hobby h WHERE h.name = :hobby", Hobby.class);
+                query.setParameter("hobby", hobbyDTO.getName());
+                Hobby tmpHobby = query.getSingleResult();
+                person.addHobby(tmpHobby);
+            }
+
+            //Add Phone
+            for (PhoneDTO phoneDTO : personDTO.getPhones()) {
+                TypedQuery<Phone> query = em.createQuery("SELECT p from Phone p WHERE p.number = :number", Phone.class);
+                query.setParameter("number", phoneDTO.getNumber());
+                Phone tmpPhone = query.getSingleResult();
+                person.addPhone(tmpPhone);
+            }
+
+            //Add Address
+            Address address = new Address(personDTO.getAddress().getStreet(), personDTO.getAddress().getAdditionalInfo());
+            CityInfo cityInfo = em.find(CityInfo.class, personDTO.getAddress().getCityInfo().getZipCode());
+            address.setCityInfo(cityInfo);
+            person.setAddress(address);
+
             em.getTransaction().begin();
             em.persist(person);
             em.getTransaction().commit();
+
             return new PersonDTO(person);
+
         } finally {
             em.close();
         }
+    }
+*/
+
+    public PersonDTO addPerson(PersonDTO personDTO) throws WebApplicationException {
+        EntityManager em = emf.createEntityManager();
+        Person person = new Person(personDTO.getEmail(), personDTO.getFirstName(), personDTO.getLastName());
+
+        if ((person.getFirstName().length() == 0) || (person.getLastName().length() == 0)) {
+            throw new WebApplicationException("Name is missing", 400);
+        }
+
+        // Add Hobby to person
+        for (HobbyDTO hobbyDTO : personDTO.getHobbies()) {
+            try {
+                Hobby hobby = em.createQuery("SELECT h FROM Hobby h WHERE h.name = :hobby", Hobby.class)
+                        .setParameter("hobby", hobbyDTO.getName())
+                        .getSingleResult();
+                person.addHobby(hobby);
+            } catch (NoResultException err) {
+                throw new WebApplicationException("Hobby: " + hobbyDTO.getName() + ", does not exist", 400);
+            }
+        }
+
+        // Add each phone to the person
+        for (PhoneDTO phoneDTO : personDTO.getPhones()) {
+
+            try {
+                Phone phoneAlreadyInUse = em
+                        .createQuery("SELECT p FROM Phone p WHERE p.number = :number", Phone.class)
+                        .setParameter("number", phoneDTO.getNumber())
+                        .getSingleResult();
+
+                throw new WebApplicationException(
+                        "Phone with number: " + phoneAlreadyInUse.getNumber() + ", is already beeing used", 400);
+            } catch (NoResultException e) {
+                Phone phoneToAdd = new Phone(phoneDTO.getNumber(), phoneDTO.getDescription());
+                person.addPhone(phoneToAdd);
+            }
+
+        }
+
+        // Create address
+        Address address = new Address(personDTO.getAddress().getStreet(),
+                personDTO.getAddress().getAdditionalInfo());
+        TypedQuery<CityInfo> query = em.createQuery("SELECT c FROM CityInfo c WHERE c.zipCode = :zipCode",CityInfo.class);
+        query.setParameter("zipCode",personDTO.getAddress().getCityInfo().getZipCode());
+        CityInfo cityInfo = query.getSingleResult();
+        if (cityInfo == null) {
+            throw new WebApplicationException(
+                    "No such zipCode exists: " + personDTO.getAddress().getCityInfo().getZipCode(), 400);
+        }
+        address.setCityInfo(cityInfo);
+        person.setAddress(address);
+
+        try {
+            em.getTransaction().begin();
+            em.persist(person);
+            em.getTransaction().commit();
+        } finally {
+            em.close();
+        }
+        return new PersonDTO(person);
     }
 
     public PersonDTO getPersonByPhoneNumber(String number) {

@@ -1,11 +1,12 @@
-package dtos;
+package dtos.Person;
 
+import dtos.Hobby.HobbyDTO;
+import dtos.PhoneDTO;
 import entities.Address;
 import entities.Hobby;
 import entities.Person;
 import entities.Phone;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class PersonDTO {
@@ -13,8 +14,8 @@ public class PersonDTO {
     private String email;
     private String firstName;
     private String lastName;
-    private List<Hobby> hobbies = new ArrayList<>();
-    private List<Phone> phones = new ArrayList<>();
+    private List<HobbyDTO> hobbies;
+    private List<PhoneDTO> phones;
     private Address address;
 
     public PersonDTO(Person person) {
@@ -22,8 +23,8 @@ public class PersonDTO {
         this.email = person.getEmail();
         this.firstName = person.getFirstName();
         this.lastName = person.getLastName();
-        this.hobbies = person.getHobbies();
-        this.phones = person.getPhones();
+        this.hobbies = HobbyDTO.getFromList(person.getHobbies());
+        this.phones = PhoneDTO.getFromList(person.getPhones());
         this.address = person.getAddress();
     }
 
@@ -59,19 +60,19 @@ public class PersonDTO {
         this.lastName = lastName;
     }
 
-    public List<Hobby> getHobbies() {
+    public List<HobbyDTO> getHobbies() {
         return hobbies;
     }
 
-    public void setHobbies(List<Hobby> hobbies) {
+    public void setHobbies(List<HobbyDTO> hobbies) {
         this.hobbies = hobbies;
     }
 
-    public List<Phone> getPhones() {
+    public List<PhoneDTO> getPhones() {
         return phones;
     }
 
-    public void setPhones(List<Phone> phones) {
+    public void setPhones(List<PhoneDTO> phones) {
         this.phones = phones;
     }
 

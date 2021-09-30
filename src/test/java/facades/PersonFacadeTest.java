@@ -1,5 +1,8 @@
 package facades;
 
+import dtos.Hobby.HobbyDTO;
+import dtos.Person.PersonDTO;
+import dtos.PhoneDTO;
 import entities.*;
 import org.junit.jupiter.api.*;
 import utils.EMF_Creator;
@@ -28,43 +31,6 @@ class PersonFacadeTest {
     @BeforeEach
     public void setUp() {
 
-        Person p1 = new Person("Rasmush22@live.dk", "Rasmus", "Hansen");
-        Person p2 = new Person("Jønkemail.com", "Jønke", "larsen");
-        Person p3 = new Person("Janusmail@mail.dk", "Janus", "Stivang");
-        Person p4 = new Person("Kianmail@mail.dk", "Kian", "Cronfalk");
-        Person p5 = new Person("Frederikmail@mail.dk", "Frederik", "Andersen");
-
-        Hobby h1 = new Hobby("svømning", "wiki.com", "hole body", "swimming");
-        Hobby h2 = new Hobby("Fencing", "wiki.com", "arms", "sword play");
-
-        Phone nokia = new Phone("11223344", "This phone is old");
-        Phone huawei = new Phone("66666666", "This phone is chinese");
-        Phone iPhone = new Phone("99887766", "This phone is new");
-
-        Address lyngbyHovedgade = new Address("Hos Frederik", "Det er dyrt");
-        Address gyldendalsvej = new Address("Hos Rasmus", "Der bor Rasmus");
-        Address damsboVaenge = new Address("Hos Janus", "Det er langt væk");
-
-        CityInfo c1 = new CityInfo(2500, "Søborg");
-        CityInfo c2 = new CityInfo(4500, "Haslev");
-
-
-        damsboVaenge.addPerson(p3);
-        damsboVaenge.addPerson(p4);
-        lyngbyHovedgade.addPerson(p5);
-
-        p1.addPhone(nokia);
-        p1.addPhone(iPhone);
-        p2.addPhone(huawei);
-
-
-        p1.addHobby(h1);
-        p1.addHobby(h2);
-        p2.addHobby(h2);
-
-        c1.addAddress(lyngbyHovedgade);
-        c1.addAddress(gyldendalsvej);
-        c2.addAddress(damsboVaenge);
 
         EntityManager em = emf.createEntityManager();
         try {
@@ -99,14 +65,6 @@ class PersonFacadeTest {
             em.createNativeQuery("alter table PHONE AUTO_INCREMENT = 1").executeUpdate();
             em.createNativeQuery("alter table ADDRESS AUTO_INCREMENT = 1").executeUpdate();
             em.createNativeQuery("alter table CITYINFO AUTO_INCREMENT = 1").executeUpdate();
-
-            em.persist(p1);
-            em.persist(p2);
-            em.persist(damsboVaenge);
-            em.persist(lyngbyHovedgade);
-            em.persist(gyldendalsvej);
-            em.persist(c1);
-            em.persist(c2);
             em.getTransaction().commit();
         } finally {
             em.close();
@@ -117,7 +75,7 @@ class PersonFacadeTest {
     public void tearDown() {
 //        Remove any data after each test was run
     }
-
+/*
 
     @Test
     public void getAllPersonsTest() {
@@ -125,7 +83,7 @@ class PersonFacadeTest {
         int actual = facade.getAllPersons().getSize();
         assertEquals(expected, actual);
     }
-
+*/
     //TODO Fails because persons are persisted at a random order(?)
 /*
     @Test
@@ -135,7 +93,7 @@ class PersonFacadeTest {
         assertEquals(expected, actual);
     }
 */
-
+/*
     @Test
     public void getPersonsByHobby() {
         int expected = 2;
@@ -166,4 +124,34 @@ class PersonFacadeTest {
 
     //TODO Create addPersonTest + deletePersonTest + editPersonTest
 
+    @Test
+    public void addPersonTest() {
+        PersonDTO p;
+        Person person = new Person("Testmail@mail.dk", "TestFirstName", "TestLastName");
+        Phone phone = new Phone("12345678", "TestPhone");
+        person.addPhone(phone);
+        Hobby hobby = new Hobby("Turisme", "https://da.wikipedia.org/wiki/Turisme", "General", "Fritid");
+        person.addHobby(hobby);
+        Address address = new Address("Testgade 48", "This is a street");
+        address.setCityInfo(new CityInfo(1234, "TestCity"));
+        person.setAddress(address);
+
+        PersonDTO createdPerson = new PersonDTO(person);
+
+        p = facade.addPerson(createdPerson);
+
+        for (HobbyDTO hobbyDTO : p.getHobbies()) {
+            assertNotNull(hobbyDTO);
+        }
+
+        for (PhoneDTO phoneDTO : p.getPhones()) {
+            assertNotNull(phoneDTO);
+        }
+
+        assertEquals("Testmail@mail.dk", p.getEmail());
+        assertEquals("Testgade 48", createdPerson.getAddress().getStreet());
+
+        assertEquals(6, facade.getAllPersons().getSize());
+    }
+*/
 }
