@@ -8,7 +8,6 @@ import entities.*;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 import javax.ws.rs.WebApplicationException;
 import java.util.List;
@@ -17,7 +16,16 @@ public class PersonFacade {
     private static PersonFacade instance;
     private static EntityManagerFactory emf;
 
-    public static PersonFacade getPersonFacade(EntityManagerFactory _emf) {
+    //Private Constructor to ensure Singleton
+    private PersonFacade() {}
+
+
+    /**
+     *
+     * @param _emf
+     * @return an instance of this facade class.
+     */
+    public static PersonFacade getInstance(EntityManagerFactory _emf) {
         if (instance == null) {
             emf = _emf;
             instance = new PersonFacade();
@@ -49,7 +57,9 @@ public class PersonFacade {
 
             //Add Address
             Address address = new Address(personDTO.getAddress().getStreet(), personDTO.getAddress().getAdditionalInfo());
-            CityInfo cityInfo = em.find(CityInfo.class, personDTO.getAddress().getCityInfo().getZipCode());
+            TypedQuery<CityInfo> query = em.createQuery("SELECT c FROM CityInfo c WHERE c.zipCode = :zipCode",CityInfo.class);
+            query.setParameter("zipCode",personDTO.getAddress().getCityInfo().getZipCode());
+            CityInfo cityInfo = query.getSingleResult();
             address.setCityInfo(cityInfo);
             person.setAddress(address);
 
@@ -64,7 +74,7 @@ public class PersonFacade {
         }
     }
 */
-
+/*
     public PersonDTO addPerson(PersonDTO personDTO) throws WebApplicationException {
         EntityManager em = emf.createEntityManager();
         Person person = new Person(personDTO.getEmail(), personDTO.getFirstName(), personDTO.getLastName());
@@ -96,6 +106,8 @@ public class PersonFacade {
 
                 throw new WebApplicationException(
                         "Phone with number: " + phoneAlreadyInUse.getNumber() + ", is already beeing used", 400);
+
+
             } catch (NoResultException e) {
                 Phone phoneToAdd = new Phone(phoneDTO.getNumber(), phoneDTO.getDescription());
                 person.addPhone(phoneToAdd);
@@ -125,7 +137,7 @@ public class PersonFacade {
         }
         return new PersonDTO(person);
     }
-
+*/
     public PersonDTO getPersonByPhoneNumber(String number) {
         EntityManager em = emf.createEntityManager();
         try {

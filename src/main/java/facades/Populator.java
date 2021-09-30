@@ -26,7 +26,7 @@ public class Populator {
 
     public static void testAdd() {
         EntityManagerFactory emf = EMF_Creator.createEntityManagerFactory();
-        PersonFacade facade = PersonFacade.getPersonFacade(emf);
+        PersonFacade facade = PersonFacade.getInstance(emf);
 
         Person person = new Person("Testmail@mail.dk", "TestFirstName", "TestLastName");
         Phone phone = new Phone("12345678", "TestPhone");
@@ -39,7 +39,7 @@ public class Populator {
 
         PersonDTO createdPerson = new PersonDTO(person);
 
-        facade.addPerson(createdPerson);
+       // facade.addPerson(createdPerson);
     }
 
     public static void main(String[] args) {
