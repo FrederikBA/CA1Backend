@@ -14,13 +14,13 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
 
-    /*
+
 
 @Path("person")
 public class PersonResource {
 
     private static final EntityManagerFactory EMF = EMF_Creator.createEntityManagerFactory();
-    private static final PersonFacade FACADE = PersonFacade(EMF);
+    private static final PersonFacade FACADE = PersonFacade.getInstance(EMF);
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
     @GET
@@ -35,4 +35,4 @@ public class PersonResource {
     public String getAllPersons() {
         return GSON.toJson(FACADE.getAllPersons());
     }
-}*/
+}
