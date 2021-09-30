@@ -7,11 +7,11 @@ import javax.persistence.EntityManagerFactory;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class CityInfoFacadeTest {
+class CityInfoFacadeTest {/*
+
     EntityManagerFactory emf = EMF_Creator.createEntityManagerFactory();
     CityInfoFacade facade = CityInfoFacade.getCityInfoFacade(emf);
 
-/*
     @Test
     public void getDanishZipCodesTest(){
         int expected = 2;
