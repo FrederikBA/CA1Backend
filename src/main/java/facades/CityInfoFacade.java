@@ -25,7 +25,6 @@ public class CityInfoFacade {
     }
 
 
-
     public List<CityInfoDTO> getAllCityInfo() {
         EntityManager em = emf.createEntityManager();
         try {
@@ -75,8 +74,8 @@ public class CityInfoFacade {
         }
     }
 
+    //TODO metode der kører cityInfoScrpt
 
 }
 
 
-//metoder der kører cityInfoScrpt

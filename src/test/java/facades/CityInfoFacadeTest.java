@@ -18,5 +18,28 @@ class CityInfoFacadeTest {
         int actual = facade.getDanishZipCodes().size();
         assertEquals(expected,actual);
     }
+
+    @Test
+    public void getAllCityInfoTest() {
+        int expected = 2;
+        int actual = facade.getAllCityInfo().size();
+        assertEquals(expected, actual);
+    }
+*/
+/*
+    @Test
+    public void getCityByIdTest() {
+        int expected = 0;
+        int actual = facade.getCityById()
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void getCityByNameTest() {
+        int expected = 0;
+        int actual = facade.getCityByName();
+        assertEquals(expected, actual);
+
+    }
 */
 }
