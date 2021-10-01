@@ -26,7 +26,7 @@ class PersonFacadeTest {
     public static void tearDownClass() {
 //        Clean up database after test is done or use a persistence unit with drop-and-create to start up clean on every test
     }
-/*
+
     // Setup
     @BeforeEach
     public void setUp() {
@@ -120,7 +120,7 @@ class PersonFacadeTest {
         String actual = facade.getPersonById(1).getFirstName();
         assertEquals(expected, actual);
     }
-
+*/
 
     @Test
     public void getPersonsByHobby() {
@@ -151,7 +151,7 @@ class PersonFacadeTest {
     }
 
     //TODO Create addPersonTest + deletePersonTest + editPersonTest
-
+/*
     @Test
     public void addPersonTest() {
         PersonDTO p;
