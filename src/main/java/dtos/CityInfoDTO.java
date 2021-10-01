@@ -9,14 +9,12 @@ public class CityInfoDTO {
     private Long id;
     private int zipcode;
     private String city;
-    private List<Address> addresses;
 
 
     public CityInfoDTO(CityInfo cityInfo) {
         this.id = cityInfo.getId();
         this.zipcode = cityInfo.getZipCode();
         this.city = cityInfo.getCity();
-        this.addresses = cityInfo.getAddresses();
     }
 
     public Long getId() {
@@ -41,13 +39,5 @@ public class CityInfoDTO {
 
     public void setCity(String city) {
         this.city = city;
-    }
-
-    public List<Address> getAddresses() {
-        return addresses;
-    }
-
-    public void setAddresses(List<Address> addresses) {
-        this.addresses = addresses;
     }
 }

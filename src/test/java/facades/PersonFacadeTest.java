@@ -2,6 +2,7 @@ package facades;
 
 import dtos.Hobby.HobbyDTO;
 import dtos.Person.PersonDTO;
+import dtos.Person.PersonsDTO;
 import dtos.PhoneDTO;
 import entities.*;
 import org.junit.jupiter.api.*;
@@ -15,6 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class PersonFacadeTest {
     private static EntityManagerFactory emf;
     private static PersonFacade facade;
+    private static Person person1, person2;
 
     @BeforeAll
     public static void setUpClass() {
@@ -113,14 +115,14 @@ class PersonFacadeTest {
     }
 
     //TODO Fails because persons are persisted at a random order(?)
-/*
+
     @Test
     public void getPersonByIdTest() {
         String expected = "TestFirstName";
         String actual = facade.getPersonById(1).getFirstName();
         assertEquals(expected, actual);
     }
-*/
+
 
     @Test
     public void getPersonsByHobby() {
