@@ -94,7 +94,7 @@ class CityInfoFacadeTest {
 
     @Test
     public void getAllCityInfoTest() {
-        int expected = 2;
+        int expected = 3;
         int actual = facade.getAllCityInfo().size();
         assertEquals(expected, actual);
     }
