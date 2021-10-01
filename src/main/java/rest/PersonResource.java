@@ -12,8 +12,8 @@ import facades.PersonFacade;
 import javax.persistence.EntityManagerFactory;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.util.ArrayList;
 import java.util.List;
-
 
 
 @Path("person")
@@ -34,5 +34,16 @@ public class PersonResource {
     @Path("/all")
     public String getAllPersons() {
         return GSON.toJson(FACADE.getAllPersons());
+    }
+
+    @GET
+    @Produces("application/json")
+    @Path("/teststring")
+    public String testString() {
+        List<String> stringList = new ArrayList<>();
+        stringList.add("One");
+        stringList.add("Two");
+        stringList.add("Three");
+        return GSON.toJson(stringList);
     }
 }
