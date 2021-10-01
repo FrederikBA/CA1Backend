@@ -36,7 +36,7 @@ class PersonFacadeTest {
 
         CityInfo cityInfo = new CityInfo(3000, "TestCity");
 
-        Person person1 = new Person("Testmail@mail.dk", "TestFirstName", "TestLastName");
+        person1 = new Person("Testmail@mail.dk", "TestFirstName", "TestLastName");
         Phone phone1 = new Phone("12345678", "TestPhone");
         person1.addPhone(phone1);
         Hobby hobby = new Hobby("Turisme", "https://da.wikipedia.org/wiki/Turisme", "General", "Fritid");
@@ -45,7 +45,8 @@ class PersonFacadeTest {
         address1.setCityInfo(cityInfo);
         person1.setAddress(address1);
 
-        Person person2 = new Person("Moreexamples@mail.dk", "MoreFirstName", "MoreLastName");
+        
+        person2 = new Person("Moreexamples@mail.dk", "MoreFirstName", "MoreLastName");
         Phone phone2 = new Phone("87654321", "ChinesePhone");
         person2.addPhone(phone2);
         person2.addHobby(hobby);
@@ -119,7 +120,7 @@ class PersonFacadeTest {
     @Test
     public void getPersonByIdTest() {
         String expected = "TestFirstName";
-        String actual = facade.getPersonById(1).getFirstName();
+        String actual = facade.getPersonById(person1.getId()).getFirstName();
         assertEquals(expected, actual);
     }
 
