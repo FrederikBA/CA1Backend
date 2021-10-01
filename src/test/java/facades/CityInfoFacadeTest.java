@@ -12,6 +12,8 @@ import static org.junit.jupiter.api.Assertions.*;
 class CityInfoFacadeTest {
     private static EntityManagerFactory emf;
     private static CityInfoFacade facade;
+    private static CityInfo cityInfo1, cityInfo2, cityInfo3;
+
 
     @BeforeAll
     public static void setUpClass() {
@@ -27,9 +29,9 @@ class CityInfoFacadeTest {
     @BeforeEach
     public void setUp() {
 
-        CityInfo cityInfo = new CityInfo(3500,"valby");
-        CityInfo cityInfo2 = new CityInfo(4500,"haslev");
-        CityInfo cityInfo3 = new CityInfo(2500,"hvidovre");
+        cityInfo1 = new CityInfo(3500,"valby");
+        cityInfo2 = new CityInfo(4500,"haslev");
+        cityInfo3 = new CityInfo(2500,"hvidovre");
 
 
         EntityManager em = emf.createEntityManager();
@@ -67,7 +69,7 @@ class CityInfoFacadeTest {
             em.createNativeQuery("alter table ADDRESS AUTO_INCREMENT = 1").executeUpdate();
             em.createNativeQuery("alter table CITYINFO AUTO_INCREMENT = 1").executeUpdate();
 
-            em.persist(cityInfo);
+            em.persist(cityInfo1);
             em.persist(cityInfo2);
             em.persist(cityInfo3);
 
@@ -99,8 +101,8 @@ class CityInfoFacadeTest {
     }
     @Test
     public void getCityByIdTest() {
-        int expected = 2500;
-        int actual = facade.getCityById(1).getZipcode();
+        int expected = 3500;
+        int actual = facade.getCityById(cityInfo1.getId()).getZipcode();
         assertEquals(expected, actual);
     }
 
