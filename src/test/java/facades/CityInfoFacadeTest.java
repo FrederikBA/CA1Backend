@@ -1,20 +1,93 @@
 package facades;
 
-import org.junit.jupiter.api.Test;
+import entities.CityInfo;
+import org.junit.jupiter.api.*;
 import utils.EMF_Creator;
 
+import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class CityInfoFacadeTest {/*
+class CityInfoFacadeTest {
+    private static EntityManagerFactory emf;
+    private static CityInfoFacade facade;
 
-    EntityManagerFactory emf = EMF_Creator.createEntityManagerFactory();
-    CityInfoFacade facade = CityInfoFacade.getCityInfoFacade(emf);
+    @BeforeAll
+    public static void setUpClass() {
+        emf = EMF_Creator.createEntityManagerFactoryForTest();
+        facade = CityInfoFacade.getCityInfoFacade(emf);
+    }
+
+    @AfterAll
+    public static void tearDownClass() {
+//        Clean up database after test is done or use a persistence unit with drop-and-create to start up clean on every test
+    }
+    // Setup
+    @BeforeEach
+    public void setUp() {
+
+        CityInfo cityInfo = new CityInfo(3500,"valby");
+        CityInfo cityInfo2 = new CityInfo(4500,"haslev");
+        CityInfo cityInfo3 = new CityInfo(2500,"hvidovre");
+
+
+        //setup databsae here
+        EntityManager em = emf.createEntityManager();
+        try {
+            em.getTransaction().begin();
+
+            em.createNamedQuery("Phone.deleteAllRows").executeUpdate();
+            em.createNativeQuery("alter table PERSON AUTO_INCREMENT = 1").executeUpdate();
+            em.createNativeQuery("alter table HOBBY AUTO_INCREMENT = 1").executeUpdate();
+            em.createNativeQuery("alter table PHONE AUTO_INCREMENT = 1").executeUpdate();
+            em.createNativeQuery("alter table ADDRESS AUTO_INCREMENT = 1").executeUpdate();
+            em.createNativeQuery("alter table CITYINFO AUTO_INCREMENT = 1").executeUpdate();
+            em.createNamedQuery("Hobby.deleteAllRows").executeUpdate();
+            em.createNativeQuery("alter table PERSON AUTO_INCREMENT = 1").executeUpdate();
+            em.createNativeQuery("alter table HOBBY AUTO_INCREMENT = 1").executeUpdate();
+            em.createNativeQuery("alter table PHONE AUTO_INCREMENT = 1").executeUpdate();
+            em.createNativeQuery("alter table ADDRESS AUTO_INCREMENT = 1").executeUpdate();
+            em.createNativeQuery("alter table CITYINFO AUTO_INCREMENT = 1").executeUpdate();
+            em.createNamedQuery("Person.deleteAllRows").executeUpdate();
+            em.createNativeQuery("alter table PERSON AUTO_INCREMENT = 1").executeUpdate();
+            em.createNativeQuery("alter table HOBBY AUTO_INCREMENT = 1").executeUpdate();
+            em.createNativeQuery("alter table PHONE AUTO_INCREMENT = 1").executeUpdate();
+            em.createNativeQuery("alter table ADDRESS AUTO_INCREMENT = 1").executeUpdate();
+            em.createNativeQuery("alter table CITYINFO AUTO_INCREMENT = 1").executeUpdate();
+            em.createNamedQuery("Address.deleteAllRows").executeUpdate();
+            em.createNativeQuery("alter table PERSON AUTO_INCREMENT = 1").executeUpdate();
+            em.createNativeQuery("alter table HOBBY AUTO_INCREMENT = 1").executeUpdate();
+            em.createNativeQuery("alter table PHONE AUTO_INCREMENT = 1").executeUpdate();
+            em.createNativeQuery("alter table ADDRESS AUTO_INCREMENT = 1").executeUpdate();
+            em.createNativeQuery("alter table CITYINFO AUTO_INCREMENT = 1").executeUpdate();
+            em.createNamedQuery("CityInfo.deleteAllRows").executeUpdate();
+            em.createNativeQuery("alter table PERSON AUTO_INCREMENT = 1").executeUpdate();
+            em.createNativeQuery("alter table HOBBY AUTO_INCREMENT = 1").executeUpdate();
+            em.createNativeQuery("alter table PHONE AUTO_INCREMENT = 1").executeUpdate();
+            em.createNativeQuery("alter table ADDRESS AUTO_INCREMENT = 1").executeUpdate();
+            em.createNativeQuery("alter table CITYINFO AUTO_INCREMENT = 1").executeUpdate();
+
+            em.persist(cityInfo);
+            em.persist(cityInfo2);
+            em.persist(cityInfo3);
+
+            em.getTransaction().commit();
+
+        } finally {
+            em.close();
+        }
+
+    }
+
+    @AfterEach
+    public void tearDown() {
+//        Remove any data after each test was run
+    }
 
     @Test
     public void getDanishZipCodesTest(){
-        int expected = 2;
+        int expected = 3;
         int actual = facade.getDanishZipCodes().size();
         assertEquals(expected,actual);
     }
@@ -25,21 +98,18 @@ class CityInfoFacadeTest {/*
         int actual = facade.getAllCityInfo().size();
         assertEquals(expected, actual);
     }
-*/
-/*
     @Test
     public void getCityByIdTest() {
-        int expected = 0;
-        int actual = facade.getCityById()
+        int expected = 2500;
+        int actual = facade.getCityById(1).getZipcode();
         assertEquals(expected, actual);
     }
 
     @Test
     public void getCityByNameTest() {
-        int expected = 0;
-        int actual = facade.getCityByName();
+        String expected = "valby";
+        String actual = facade.getCityByName("valby").getCity();
         assertEquals(expected, actual);
 
     }
-*/
 }
