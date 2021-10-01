@@ -84,7 +84,7 @@ class CityInfoFacadeTest {
     public void tearDown() {
 //        Remove any data after each test was run
     }
-
+/*
     @Test
     public void getDanishZipCodesTest(){
         int expected = 3;
@@ -111,5 +111,5 @@ class CityInfoFacadeTest {
         String actual = facade.getCityByName("valby").getCity();
         assertEquals(expected, actual);
 
-    }
+    }*/
 }
