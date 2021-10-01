@@ -21,7 +21,7 @@ class CityInfoFacadeTest {
 
     @AfterAll
     public static void tearDownClass() {
-//        Clean up database after test is done or use a persistence unit with drop-and-create to start up clean on every test
+//Clean up database after test is done or use a persistence unit with drop-and-create to start up clean on every test
     }
     // Setup
     @BeforeEach
@@ -32,7 +32,6 @@ class CityInfoFacadeTest {
         CityInfo cityInfo3 = new CityInfo(2500,"hvidovre");
 
 
-        //setup databsae here
         EntityManager em = emf.createEntityManager();
         try {
             em.getTransaction().begin();
@@ -84,7 +83,7 @@ class CityInfoFacadeTest {
     public void tearDown() {
 //        Remove any data after each test was run
     }
-/*
+
     @Test
     public void getDanishZipCodesTest(){
         int expected = 3;
@@ -111,5 +110,5 @@ class CityInfoFacadeTest {
         String actual = facade.getCityByName("valby").getCity();
         assertEquals(expected, actual);
 
-    }*/
+    }
 }

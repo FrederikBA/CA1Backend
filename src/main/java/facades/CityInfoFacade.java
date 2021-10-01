@@ -74,7 +74,6 @@ public class CityInfoFacade {
         }
     }
 
-    //TODO metode der kører cityInfoScrpt
 
 }
 
