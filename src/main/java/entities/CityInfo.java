@@ -1,12 +1,13 @@
 package entities;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @NamedQuery(name = "CityInfo.deleteAllRows", query = "DELETE from CityInfo")
-public class CityInfo {
+public class CityInfo implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)

@@ -1,11 +1,9 @@
 package dtos.Person;
 
+import dtos.AddressDTO;
 import dtos.Hobby.HobbyDTO;
 import dtos.PhoneDTO;
-import entities.Address;
-import entities.Hobby;
 import entities.Person;
-import entities.Phone;
 
 import java.util.List;
 
@@ -16,7 +14,7 @@ public class PersonDTO {
     private String lastName;
     private List<HobbyDTO> hobbies;
     private List<PhoneDTO> phones;
-    private Address address;
+    private AddressDTO address;
 
     public PersonDTO(Person person) {
         this.id = person.getId();
@@ -25,7 +23,7 @@ public class PersonDTO {
         this.lastName = person.getLastName();
         this.hobbies = HobbyDTO.getFromList(person.getHobbies());
         this.phones = PhoneDTO.getFromList(person.getPhones());
-        this.address = person.getAddress();
+        this.address = new AddressDTO(person.getAddress());
     }
 
     public Long getId() {
@@ -76,11 +74,11 @@ public class PersonDTO {
         this.phones = phones;
     }
 
-    public Address getAddress() {
+    public AddressDTO getAddress() {
         return address;
     }
 
-    public void setAddress(Address address) {
+    public void setAddress(AddressDTO address) {
         this.address = address;
     }
 }

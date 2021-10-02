@@ -25,7 +25,6 @@ public class CityInfoFacade {
     }
 
 
-
     public List<CityInfoDTO> getAllCityInfo() {
         EntityManager em = emf.createEntityManager();
         try {
@@ -40,7 +39,7 @@ public class CityInfoFacade {
         }
     }
 
-    public CityInfoDTO getCityById(int id) {
+    public CityInfoDTO getCityById(long id) {
         EntityManager em = emf.createEntityManager();
         try {
             CityInfo cityInfo = em.find(CityInfo.class, id);
@@ -79,4 +78,3 @@ public class CityInfoFacade {
 }
 
 
-//metoder der kører cityInfoScrpt

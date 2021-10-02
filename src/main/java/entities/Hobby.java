@@ -2,6 +2,7 @@ package entities;
 
 import javax.inject.Named;
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,7 +10,7 @@ import java.util.List;
 @NamedQueries({
         @NamedQuery(name = "Hobby.deleteAllRows", query = "DELETE from Hobby")
 })
-public class Hobby {
+public class Hobby implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "h_id", nullable = false)
