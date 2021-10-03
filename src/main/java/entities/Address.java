@@ -9,9 +9,7 @@ import java.util.List;
 @NamedQuery(name = "Address.deleteAllRows", query = "DELETE from Address")
 public class Address implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
-    private Long id;
+    @Column(name = "street", nullable = false)
     private String street;
     private String additionalInfo;
 
@@ -61,15 +59,6 @@ public class Address implements Serializable {
     public void setPersons(List<Person> persons) {
         this.persons = persons;
     }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
 
     public void addPerson(Person person) {
         this.persons.add(person);

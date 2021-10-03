@@ -54,6 +54,7 @@ class PersonFacadeTest {
         address2.setCityInfo(cityInfo);
         person2.setAddress(address2);
 
+        Hobby newHobby = new Hobby("Swimming", "https://da.wikipedia.org/wiki/Swimming", "Waterbased", "Competition");
 
         EntityManager em = emf.createEntityManager();
         try {
@@ -67,6 +68,7 @@ class PersonFacadeTest {
 
             em.persist(cityInfo);
             em.persist(hobby);
+            em.persist(newHobby);
             em.persist(person1);
             em.persist(person2);
 
@@ -81,7 +83,7 @@ class PersonFacadeTest {
     @AfterAll
     static void tearDownAll() {
         EntityManager em = emf.createEntityManager();
-        try  {
+        try {
             em.getTransaction().begin();
             em.createNamedQuery("Hobby.deleteAllRows").executeUpdate();
             em.createNamedQuery("Phone.deleteAllRows").executeUpdate();
@@ -93,6 +95,7 @@ class PersonFacadeTest {
             em.close();
         }
     }
+
     @AfterEach
     public void tearDown() {
 //        Remove any data after each test was run
@@ -174,6 +177,32 @@ class PersonFacadeTest {
         assertEquals("Testgade 48", createdPerson.getAddress().getStreet());
 
         assertEquals(3, facade.getAllPersons().getSize());
+    }
+
+    @Test
+    public void editPersonTest() {
+        person1.setLastName("Hansen");
+        person1.addPhone(new Phone("23436688", "This phone has been edited"));
+        Hobby newHobby = new Hobby("Swimming", "https://da.wikipedia.org/wiki/Swimming", "Waterbased", "Competition");
+        person1.addHobby(newHobby);
+        Address newAddress = new Address("Lyngby Omfartsvej 2", "Motorvej");
+        newAddress.setCityInfo(new CityInfo(3000, "TestCity"));
+        person1.setAddress(newAddress);
+        PersonDTO editedPerson = new PersonDTO(person1);
+        facade.editPerson(editedPerson);
+
+
+        assertEquals("Hansen", editedPerson.getLastName());
+        assertEquals(2,editedPerson.getPhones().size());
+        assertEquals(2,editedPerson.getHobbies().size());
+
+
+        for (int i = 1; i < editedPerson.getHobbies().size(); i++) {
+            assertEquals(newHobby.getName(),editedPerson.getHobbies().get(i).getName());
+        }
+
+        assertEquals(newAddress.getStreet(), editedPerson.getAddress().getStreet());
+
     }
 
 }

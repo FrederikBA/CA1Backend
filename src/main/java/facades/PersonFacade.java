@@ -20,12 +20,7 @@ public class PersonFacade {
     //Private Constructor to ensure Singleton
     private PersonFacade() {
     }
-
-
-    /**
-     * @param _emf
-     * @return an instance of this facade class.
-     */
+    
     public static PersonFacade getInstance(EntityManagerFactory _emf) {
         if (instance == null) {
             emf = _emf;
@@ -86,7 +81,7 @@ public class PersonFacade {
             em.close();
         }
     }
-    
+
     public PersonDTO getPersonByPhoneNumber(String number) {
         EntityManager em = emf.createEntityManager();
         try {
@@ -156,19 +151,71 @@ public class PersonFacade {
         }
     }
 
-    public PersonDTO deletePerson(long id) throws WebApplicationException {
+    public PersonDTO editPerson(PersonDTO personDTO) {
         EntityManager em = emf.createEntityManager();
-        Person person = em.find(Person.class, id);
-        if (person == null) {
-            throw new WebApplicationException(String.format("Person with id: (%d) not found", id), 404);
-        }
+
         try {
-            em.getTransaction().begin();
-            em.remove(person);
-            em.getTransaction().commit();
+            Person person = em.find(Person.class, personDTO.getId());
+            if (person == null) {
+                throw new WebApplicationException(String.format("Person not found"));
+            }
+            person.setEmail(person.getEmail());
+            person.setFirstName(personDTO.getFirstName());
+            person.setFirstName(personDTO.getLastName());
+
+            // Edit phones
+            for (int i = 0; i < personDTO.getPhones().size(); i++) {
+                PhoneDTO phoneDTO = personDTO.getPhones().get(i);
+                try {
+                    Phone phone = person.getPhones().get(i);
+                    phone.setNumber(phoneDTO.getNumber());
+                    phone.setDescription(phoneDTO.getDescription());
+                } catch (IndexOutOfBoundsException e) {
+                    //If a phone that doesnt already exist has been added, this will be thrown
+                    person.addPhone(new Phone(phoneDTO));
+                }
+            }
+
+            // Edit hobbies
+            person.getHobbies().clear();
+            for (int i = 0; i < personDTO.getHobbies().size(); i++) {
+                HobbyDTO hobbyDTO = personDTO.getHobbies().get(i);
+
+                try {
+                    Hobby foundHobby = em
+                            .createQuery("SELECT h FROM Hobby h WHERE h.name = :hobby", Hobby.class)
+                            .setParameter("hobby", hobbyDTO.getName())
+                            .getSingleResult();
+                    person.addHobby(foundHobby);
+                } catch (NoResultException error) {
+                    throw new WebApplicationException("Hobby: " + hobbyDTO.getName() + ", does not exist", 400);
+                }
+            }
+
+            // Edit address
+            Address addressInUse = em.find(Address.class, personDTO.getAddress().getStreet());
+
+
+            if (addressInUse != null) {
+                // use this address
+                person.setAddress(addressInUse);
+            } else {
+                // create a new address
+                Address newAddress = new Address(personDTO.getAddress().getStreet(), personDTO.getAddress().getAdditionalInfo());
+                TypedQuery<CityInfo> query = em.createQuery("SELECT c FROM CityInfo c WHERE c.zipCode = :zipCode", CityInfo.class);
+                query.setParameter("zipCode", personDTO.getAddress().getCityInfo().getZipcode());
+                CityInfo cityInfo = query.getSingleResult();
+                if (cityInfo == null) {
+                    throw new WebApplicationException(
+                            "Zipcode: " + personDTO.getAddress().getCityInfo().getZipcode() + ", does not exist", 404);
+                }
+                newAddress.setCityInfo(cityInfo);
+                person.setAddress(newAddress);
+            }
+
+            return new PersonDTO(person);
         } finally {
             em.close();
         }
-        return new PersonDTO(person);
     }
 }
