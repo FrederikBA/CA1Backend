@@ -60,35 +60,11 @@ class PersonFacadeTest {
             em.getTransaction().begin();
 
             em.createNamedQuery("Phone.deleteAllRows").executeUpdate();
-            em.createNativeQuery("alter table PERSON AUTO_INCREMENT = 1").executeUpdate();
-            em.createNativeQuery("alter table HOBBY AUTO_INCREMENT = 1").executeUpdate();
-            em.createNativeQuery("alter table PHONE AUTO_INCREMENT = 1").executeUpdate();
-            em.createNativeQuery("alter table ADDRESS AUTO_INCREMENT = 1").executeUpdate();
-            em.createNativeQuery("alter table CITYINFO AUTO_INCREMENT = 1").executeUpdate();
             em.createNamedQuery("Hobby.deleteAllRows").executeUpdate();
-            em.createNativeQuery("alter table PERSON AUTO_INCREMENT = 1").executeUpdate();
-            em.createNativeQuery("alter table HOBBY AUTO_INCREMENT = 1").executeUpdate();
-            em.createNativeQuery("alter table PHONE AUTO_INCREMENT = 1").executeUpdate();
-            em.createNativeQuery("alter table ADDRESS AUTO_INCREMENT = 1").executeUpdate();
-            em.createNativeQuery("alter table CITYINFO AUTO_INCREMENT = 1").executeUpdate();
             em.createNamedQuery("Person.deleteAllRows").executeUpdate();
-            em.createNativeQuery("alter table PERSON AUTO_INCREMENT = 1").executeUpdate();
-            em.createNativeQuery("alter table HOBBY AUTO_INCREMENT = 1").executeUpdate();
-            em.createNativeQuery("alter table PHONE AUTO_INCREMENT = 1").executeUpdate();
-            em.createNativeQuery("alter table ADDRESS AUTO_INCREMENT = 1").executeUpdate();
-            em.createNativeQuery("alter table CITYINFO AUTO_INCREMENT = 1").executeUpdate();
             em.createNamedQuery("Address.deleteAllRows").executeUpdate();
-            em.createNativeQuery("alter table PERSON AUTO_INCREMENT = 1").executeUpdate();
-            em.createNativeQuery("alter table HOBBY AUTO_INCREMENT = 1").executeUpdate();
-            em.createNativeQuery("alter table PHONE AUTO_INCREMENT = 1").executeUpdate();
-            em.createNativeQuery("alter table ADDRESS AUTO_INCREMENT = 1").executeUpdate();
-            em.createNativeQuery("alter table CITYINFO AUTO_INCREMENT = 1").executeUpdate();
             em.createNamedQuery("CityInfo.deleteAllRows").executeUpdate();
-            em.createNativeQuery("alter table PERSON AUTO_INCREMENT = 1").executeUpdate();
-            em.createNativeQuery("alter table HOBBY AUTO_INCREMENT = 1").executeUpdate();
-            em.createNativeQuery("alter table PHONE AUTO_INCREMENT = 1").executeUpdate();
-            em.createNativeQuery("alter table ADDRESS AUTO_INCREMENT = 1").executeUpdate();
-            em.createNativeQuery("alter table CITYINFO AUTO_INCREMENT = 1").executeUpdate();
+
             em.persist(cityInfo);
             em.persist(hobby);
             em.persist(person1);
@@ -169,17 +145,17 @@ class PersonFacadeTest {
     }
 
     //TODO Create addPersonTest + deletePersonTest + editPersonTest
-/*
+
     @Test
     public void addPersonTest() {
         PersonDTO p;
         Person person = new Person("Testmail@mail.dk", "TestFirstName", "TestLastName");
-        Phone phone = new Phone("12345678", "TestPhone");
+        Phone phone = new Phone("54347892", "TestPhone");
         person.addPhone(phone);
         Hobby hobby = new Hobby("Turisme", "https://da.wikipedia.org/wiki/Turisme", "General", "Fritid");
         person.addHobby(hobby);
         Address address = new Address("Testgade 48", "This is a street");
-        address.setCityInfo(new CityInfo(1234, "TestCity"));
+        address.setCityInfo(new CityInfo(3000, "TestCity"));
         person.setAddress(address);
 
         PersonDTO createdPerson = new PersonDTO(person);
@@ -197,7 +173,7 @@ class PersonFacadeTest {
         assertEquals("Testmail@mail.dk", p.getEmail());
         assertEquals("Testgade 48", createdPerson.getAddress().getStreet());
 
-        assertEquals(6, facade.getAllPersons().getSize());
+        assertEquals(3, facade.getAllPersons().getSize());
     }
-*/
+
 }
