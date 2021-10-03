@@ -157,7 +157,7 @@ class PersonFacadeTest {
         person.addPhone(phone);
         Hobby hobby = new Hobby("Turisme", "https://da.wikipedia.org/wiki/Turisme", "General", "Fritid");
         person.addHobby(hobby);
-        Address address = new Address("Testgade 48", "This is a street");
+        Address address = new Address("Testgade 63", "This is a street");
         address.setCityInfo(new CityInfo(3000, "TestCity"));
         person.setAddress(address);
 
@@ -174,7 +174,7 @@ class PersonFacadeTest {
         }
 
         assertEquals("Testmail@mail.dk", p.getEmail());
-        assertEquals("Testgade 48", createdPerson.getAddress().getStreet());
+        assertEquals("Testgade 63", createdPerson.getAddress().getStreet());
 
         assertEquals(3, facade.getAllPersons().getSize());
     }
