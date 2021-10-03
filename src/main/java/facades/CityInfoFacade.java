@@ -61,7 +61,7 @@ public class CityInfoFacade {
             em.close();
         }
     }
-
+ 
     //TODO  not able to read zipcodes numbered 0800 fix it
     public List<Integer> getDanishZipCodes() {
         EntityManager em = emf.createEntityManager();
