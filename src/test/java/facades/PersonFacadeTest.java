@@ -102,6 +102,21 @@ class PersonFacadeTest {
 
     }
 
+    @AfterAll
+    static void tearDownAll() {
+        EntityManager em = emf.createEntityManager();
+        try  {
+            em.getTransaction().begin();
+            em.createNamedQuery("Hobby.deleteAllRows").executeUpdate();
+            em.createNamedQuery("Phone.deleteAllRows").executeUpdate();
+            em.createNamedQuery("Person.deleteAllRows").executeUpdate();
+            em.createNamedQuery("Address.deleteAllRows").executeUpdate();
+            em.createNamedQuery("CityInfo.deleteAllRows").executeUpdate();
+            em.getTransaction().commit();
+        } finally {
+            em.close();
+        }
+    }
     @AfterEach
     public void tearDown() {
 //        Remove any data after each test was run
