@@ -38,12 +38,36 @@ public class PersonResource {
 
     @GET
     @Produces("application/json")
-    @Path("/teststring")
-    public String testString() {
-        List<String> stringList = new ArrayList<>();
-        stringList.add("One");
-        stringList.add("Two");
-        stringList.add("Three");
-        return GSON.toJson(stringList);
+    @Path("/{id}")
+    public String getById(@PathParam("id") int id) {
+        return GSON.toJson(FACADE.getPersonById(id));
+    }
+
+    @GET
+    @Produces("application/json")
+    @Path("/hobby/{hobby}")
+    public String getByHobby(@PathParam("hobby") String hobby) {
+        return GSON.toJson(FACADE.getPersonsByHobby(hobby));
+    }
+
+    @GET
+    @Produces("application/json")
+    @Path("/number/{number}")
+    public String getByNumber(@PathParam("number") String number) {
+        return GSON.toJson(FACADE.getPersonByPhoneNumber(number));
+    }
+
+    @GET
+    @Produces("application/json")
+    @Path("/city/{zipCode}")
+    public String getByZip(@PathParam("zipCode") int zipCode) {
+        return GSON.toJson(FACADE.getPersonsByCity(zipCode));
+    }
+
+    @GET
+    @Produces("application/json")
+    @Path("/hobby/count/{hobby}")
+    public String getHobbyCount(@PathParam("hobby") String hobby) {
+        return GSON.toJson(FACADE.getNumberOfPeopleByHobby(hobby));
     }
 }
