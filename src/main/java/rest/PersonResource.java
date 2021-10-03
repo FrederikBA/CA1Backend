@@ -80,6 +80,7 @@ public class PersonResource {
         return GSON.toJson(pNew);
     }
 
+    //TODO Doesn't work in Postman
     @PUT
     @Path("/{id}")
     public String editPerson(@PathParam("id") long id, String person) {
