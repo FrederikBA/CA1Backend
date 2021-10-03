@@ -28,18 +28,19 @@ public class Populator {
         EntityManagerFactory emf = EMF_Creator.createEntityManagerFactory();
         PersonFacade facade = PersonFacade.getInstance(emf);
 
-        Person person = new Person("Testmail@mail.dk", "TestFirstName", "TestLastName");
-        Phone phone = new Phone("12345678", "TestPhone");
-        person.addPhone(phone);
+        Person p1 = new Person("kaj@mail.dk", "Kaj", "Testesen");
+        Phone phone = new Phone("54667283", "This is Kaj's phone");
+        p1.addPhone(phone);
         Hobby hobby = new Hobby("Turisme", "https://da.wikipedia.org/wiki/Turisme", "General", "Fritid");
-        person.addHobby(hobby);
-        Address address = new Address("Testgade 48", "This is a street");
-        address.setCityInfo(new CityInfo(1800, "Frederiksberg C"));
-        person.setAddress(address);
+        p1.addHobby(hobby);
+        Address address = new Address("Lyngby Hovedgade 5", "Lyngby");
+        p1.setAddress(address);
+        CityInfo cityInfo = new CityInfo(2800,"Kongens Lyngby");
+        address.setCityInfo(cityInfo);
 
-        PersonDTO createdPerson = new PersonDTO(person);
+        PersonDTO createdPerson = new PersonDTO(p1);
 
-       // facade.addPerson(createdPerson);
+        facade.addPerson(createdPerson);
     }
 
     public static void main(String[] args) {

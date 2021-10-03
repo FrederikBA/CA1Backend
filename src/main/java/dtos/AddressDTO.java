@@ -46,4 +46,5 @@ public class AddressDTO {
     public void setCityInfo(CityInfoDTO cityInfo) {
         this.cityInfo = cityInfo;
     }
+
 }

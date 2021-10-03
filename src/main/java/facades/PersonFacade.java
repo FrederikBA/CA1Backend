@@ -8,6 +8,7 @@ import entities.*;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 import javax.ws.rs.WebApplicationException;
 import java.util.List;
@@ -32,7 +33,7 @@ public class PersonFacade {
         }
         return instance;
     }
-/*
+
     public PersonDTO addPerson(PersonDTO personDTO) {
         EntityManager em = emf.createEntityManager();
         Person person = new Person(personDTO.getEmail(), personDTO.getFirstName(), personDTO.getLastName());
@@ -47,18 +48,30 @@ public class PersonFacade {
                 person.addHobby(tmpHobby);
             }
 
-            //Add Phone
+            // Add each phone to the person
             for (PhoneDTO phoneDTO : personDTO.getPhones()) {
-                TypedQuery<Phone> query = em.createQuery("SELECT p from Phone p WHERE p.number = :number", Phone.class);
-                query.setParameter("number", phoneDTO.getNumber());
-                Phone tmpPhone = query.getSingleResult();
-                person.addPhone(tmpPhone);
+
+                try {
+                    Phone phoneAlreadyInUse = em
+                            .createQuery("SELECT p FROM Phone p WHERE p.number = :number", Phone.class)
+                            .setParameter("number", phoneDTO.getNumber())
+                            .getSingleResult();
+
+                    throw new WebApplicationException(
+                            "Phone with number: " + phoneAlreadyInUse.getNumber() + ", is already beeing used", 400);
+
+
+                } catch (NoResultException e) {
+                    Phone phoneToAdd = new Phone(phoneDTO.getNumber(), phoneDTO.getDescription());
+                    person.addPhone(phoneToAdd);
+                }
+
             }
 
             //Add Address
             Address address = new Address(personDTO.getAddress().getStreet(), personDTO.getAddress().getAdditionalInfo());
             TypedQuery<CityInfo> query = em.createQuery("SELECT c FROM CityInfo c WHERE c.zipCode = :zipCode",CityInfo.class);
-            query.setParameter("zipCode",personDTO.getAddress().getCityInfo().getZipCode());
+            query.setParameter("zipCode",personDTO.getAddress().getCityInfo().getZipcode());
             CityInfo cityInfo = query.getSingleResult();
             address.setCityInfo(cityInfo);
             person.setAddress(address);
@@ -73,7 +86,7 @@ public class PersonFacade {
             em.close();
         }
     }
-*/
+
 /*
     public PersonDTO addPerson(PersonDTO personDTO) throws WebApplicationException {
         EntityManager em = emf.createEntityManager();

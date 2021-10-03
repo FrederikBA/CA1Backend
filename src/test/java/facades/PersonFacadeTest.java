@@ -45,7 +45,7 @@ class PersonFacadeTest {
         address1.setCityInfo(cityInfo);
         person1.setAddress(address1);
 
-        
+
         person2 = new Person("Moreexamples@mail.dk", "MoreFirstName", "MoreLastName");
         Phone phone2 = new Phone("87654321", "ChinesePhone");
         person2.addPhone(phone2);

@@ -40,4 +40,5 @@ public class CityInfoDTO {
     public void setCity(String city) {
         this.city = city;
     }
+
 }
