@@ -22,8 +22,17 @@ public class CityInfoResource {
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
     @GET
     @Produces({MediaType.APPLICATION_JSON})
-    public String all(){
+    public String getAll(){
         List<CityInfoDTO> p = FACADE.getAllCityInfo();
         return GSON.toJson(p);
     }
+
+    @GET
+    @Produces("application/json")
+    @Path("/danish")
+    public String getDanishZipCodes(){
+        return GSON.toJson(FACADE.getDanishZipCodes());
+    }
+
+
 }
