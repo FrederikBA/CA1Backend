@@ -70,4 +70,22 @@ public class PersonResource {
     public String getHobbyCount(@PathParam("hobby") String hobby) {
         return GSON.toJson(FACADE.getNumberOfPeopleByHobby(hobby));
     }
+
+    @POST
+    @Produces("application/json")
+    @Consumes("application/json")
+    public String addPerson(String person) {
+        PersonDTO p = GSON.fromJson(person, PersonDTO.class);
+        PersonDTO pNew = FACADE.addPerson(p);
+        return GSON.toJson(pNew);
+    }
+
+    @PUT
+    @Path("/{id}")
+    public String editPerson(@PathParam("id") long id, String person) {
+        PersonDTO p = GSON.fromJson(person, PersonDTO.class);
+        p.setId(id);
+        PersonDTO pEdited = FACADE.editPerson(p);
+        return GSON.toJson(pEdited);
+    }
 }
