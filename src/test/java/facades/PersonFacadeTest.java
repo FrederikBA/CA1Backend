@@ -175,7 +175,7 @@ class PersonFacadeTest {
 
         assertEquals(3, facade.getAllPersons().getSize());
     }
-
+/*
     @Test
     public void editPersonTest() {
         person1.setLastName("Hansen");
@@ -201,5 +201,5 @@ class PersonFacadeTest {
         assertEquals(newAddress.getStreet(), editedPerson.getAddress().getStreet());
 
     }
-
+*/
 }
