@@ -1,13 +1,11 @@
 package facades;
 
-import dtos.CityInfoDTO;
-import dtos.RenameMeDTO;
+import dtos.CityInfo.CityInfoDTO;
+import dtos.CityInfo.CityInfosDTO;
 import entities.CityInfo;
-import entities.RenameMe;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 import java.util.List;
 
@@ -25,15 +23,12 @@ public class CityInfoFacade {
     }
 
 
-    public List<CityInfoDTO> getAllCityInfo() {
+    public CityInfosDTO getAllCityInfo() {
         EntityManager em = emf.createEntityManager();
         try {
-            em.getTransaction().begin();
             TypedQuery<CityInfo> query = em.createQuery("SELECT c FROM CityInfo c", CityInfo.class);
-            List<CityInfo> cityInfoResultList = query.getResultList();
-            em.getTransaction().commit();
-
-            return (List<CityInfoDTO>) (List<?>) cityInfoResultList;
+            List<CityInfo> cityInfoList = query.getResultList();
+            return new CityInfosDTO(cityInfoList);
         } finally {
             em.close();
         }
@@ -84,6 +79,7 @@ public class CityInfoFacade {
             em.close();
         }
     }
+
 
 }
 

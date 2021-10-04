@@ -2,7 +2,7 @@ package dtos.Person;
 
 import dtos.AddressDTO;
 import dtos.Hobby.HobbyDTO;
-import dtos.PhoneDTO;
+import dtos.Phone.PhoneDTO;
 import entities.Person;
 
 import java.util.List;

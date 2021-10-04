@@ -2,10 +2,9 @@ package rest;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import dtos.CityInfoDTO;
-import entities.CityInfo;
+import dtos.CityInfo.CityInfoDTO;
+import dtos.CityInfo.CityInfosDTO;
 import facades.CityInfoFacade;
-import facades.PersonFacade;
 import utils.EMF_Creator;
 
 import javax.persistence.EntityManagerFactory;
@@ -27,8 +26,7 @@ public class CityInfoResource {
     @Produces({MediaType.APPLICATION_JSON})
     @Path("getall")
     public String getAll() {
-        List<CityInfoDTO> p = FACADE.getAllCityInfo();
-        return GSON.toJson(p);
+        return GSON.toJson(FACADE.getAllCityInfo());
     }
 
     @GET

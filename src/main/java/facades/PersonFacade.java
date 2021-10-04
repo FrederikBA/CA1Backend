@@ -3,7 +3,7 @@ package facades;
 import dtos.Hobby.HobbyDTO;
 import dtos.Person.PersonDTO;
 import dtos.Person.PersonsDTO;
-import dtos.PhoneDTO;
+import dtos.Phone.PhoneDTO;
 import entities.*;
 
 import javax.persistence.EntityManager;
