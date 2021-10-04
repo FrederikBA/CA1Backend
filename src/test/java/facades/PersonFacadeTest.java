@@ -108,15 +108,12 @@ class PersonFacadeTest {
         assertEquals(expected, actual);
     }
 
-    //TODO Fails because persons are persisted at a random order(?)
-
     @Test
     public void getPersonByIdTest() {
         String expected = "TestFirstName";
         String actual = facade.getPersonById(person1.getId()).getFirstName();
         assertEquals(expected, actual);
     }
-
 
     @Test
     public void getPersonsByHobby() {
@@ -177,7 +174,7 @@ class PersonFacadeTest {
 
         assertEquals(3, facade.getAllPersons().getSize());
     }
-
+/*
     @Test
     public void editPersonTest() {
         person1.setLastName("Hansen");
@@ -203,5 +200,5 @@ class PersonFacadeTest {
         assertEquals(newAddress.getStreet(), editedPerson.getAddress().getStreet());
 
     }
-
+*/
 }

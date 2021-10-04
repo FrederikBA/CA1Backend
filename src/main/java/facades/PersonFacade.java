@@ -20,7 +20,7 @@ public class PersonFacade {
     //Private Constructor to ensure Singleton
     private PersonFacade() {
     }
-    
+
     public static PersonFacade getInstance(EntityManagerFactory _emf) {
         if (instance == null) {
             emf = _emf;
@@ -155,15 +155,18 @@ public class PersonFacade {
         EntityManager em = emf.createEntityManager();
 
         try {
+            em.getTransaction().begin();
             Person person = em.find(Person.class, personDTO.getId());
+            em.getTransaction().commit();
             if (person == null) {
                 throw new WebApplicationException(String.format("Person not found"));
             }
-            person.setEmail(person.getEmail());
+            person.setEmail(personDTO.getEmail());
             person.setFirstName(personDTO.getFirstName());
             person.setFirstName(personDTO.getLastName());
 
             // Edit phones
+
             for (int i = 0; i < personDTO.getPhones().size(); i++) {
                 PhoneDTO phoneDTO = personDTO.getPhones().get(i);
                 try {
@@ -178,6 +181,7 @@ public class PersonFacade {
 
             // Edit hobbies
             person.getHobbies().clear();
+
             for (int i = 0; i < personDTO.getHobbies().size(); i++) {
                 HobbyDTO hobbyDTO = personDTO.getHobbies().get(i);
 
@@ -188,7 +192,8 @@ public class PersonFacade {
                             .getSingleResult();
                     person.addHobby(foundHobby);
                 } catch (NoResultException error) {
-                    throw new WebApplicationException("Hobby: " + hobbyDTO.getName() + ", does not exist", 400);
+                    throw new WebApplicationException("Hobby: " + hobbyDTO.getName() + ", does not exist",
+                            400);
                 }
             }
 
@@ -212,7 +217,15 @@ public class PersonFacade {
                 newAddress.setCityInfo(cityInfo);
                 person.setAddress(newAddress);
             }
+            em.getTransaction().begin();
+            TypedQuery<Integer> query = em.createQuery("DELETE FROM Person.hobbies h WHERE Person.id =:id", Integer.class);
+            query.setParameter("id",person.getId());
+            query.executeUpdate();
+            em.getTransaction().commit();
 
+            em.getTransaction().begin();
+            em.merge(person);
+            em.getTransaction().commit();
             return new PersonDTO(person);
         } finally {
             em.close();
