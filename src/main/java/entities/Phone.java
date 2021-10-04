@@ -1,6 +1,6 @@
 package entities;
 
-import dtos.PhoneDTO;
+import dtos.Phone.PhoneDTO;
 
 import javax.persistence.*;
 import java.io.Serializable;

@@ -1,5 +1,6 @@
 package dtos;
 
+import dtos.CityInfo.CityInfoDTO;
 import entities.Address;
 
 public class AddressDTO {

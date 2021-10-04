@@ -1,4 +1,4 @@
-package dtos;
+package dtos.CityInfo;
 
 import entities.Address;
 import entities.CityInfo;

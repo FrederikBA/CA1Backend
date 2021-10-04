@@ -1,7 +1,11 @@
 package facades;
 
 import entities.CityInfo;
-import org.junit.jupiter.api.*;
+import entities.Phone;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import utils.EMF_Creator;
 
 import javax.persistence.EntityManager;
@@ -9,30 +13,29 @@ import javax.persistence.EntityManagerFactory;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class CityInfoFacadeTest {
+class PhoneFacadeTest {
     private static EntityManagerFactory emf;
-    private static CityInfoFacade facade;
-    private static CityInfo cityInfo1, cityInfo2, cityInfo3;
+    private static PhoneFacade facade;
+    private static Phone phone1, phone2, phone3;
 
 
     @BeforeAll
     public static void setUpClass() {
         emf = EMF_Creator.createEntityManagerFactoryForTest();
-        facade = CityInfoFacade.getCityInfoFacade(emf);
+        facade = PhoneFacade.getPhoneFacade(emf);
     }
 
     @AfterAll
     public static void tearDownClass() {
 //Clean up database after test is done or use a persistence unit with drop-and-create to start up clean on every test
     }
-    // Setup
+
     @BeforeEach
-    public void setUp() {
+    void setUp() {
 
-        cityInfo1 = new CityInfo(3500,"valby");
-        cityInfo2 = new CityInfo(4500,"haslev");
-        cityInfo3 = new CityInfo(2500,"hvidovre");
-
+        phone1 = new Phone("12345678", "Iphone");
+        phone2 = new Phone("11223344", "Android");
+        phone3 = new Phone("55667788", "Huewai");
 
         EntityManager em = emf.createEntityManager();
         try {
@@ -69,9 +72,9 @@ class CityInfoFacadeTest {
             em.createNativeQuery("alter table ADDRESS AUTO_INCREMENT = 1").executeUpdate();
             em.createNativeQuery("alter table CITYINFO AUTO_INCREMENT = 1").executeUpdate();
 
-            em.persist(cityInfo1);
-            em.persist(cityInfo2);
-            em.persist(cityInfo3);
+            em.persist(phone1);
+            em.persist(phone2);
+            em.persist(phone3);
 
             em.getTransaction().commit();
 
@@ -81,45 +84,10 @@ class CityInfoFacadeTest {
 
     }
 
+
+
+
     @AfterEach
-    public void tearDown() {
-//        Remove any data after each test was run
+    void tearDown() {
     }
-    @Test
-    public void getAllCityInfoTest() {
-        int expected = 3;
-        int actual = facade.getAllCityInfo().getSize();
-        assertEquals(expected, actual);
-    }
-
-    @Test
-    public void getDanishZipCodesTest(){
-        int expected = 3;
-        int actual = facade.getDanishZipCodes().size();
-        assertEquals(expected,actual);
-    }
-
-
-    @Test
-    public void getCityByIdTest() {
-        int expected = 3500;
-        int actual = facade.getCityById(cityInfo1.getId()).getZipcode();
-        assertEquals(expected, actual);
-    }
-
-    @Test
-    public void getCityByNameTest() {
-        String expected = "valby";
-        String actual = facade.getCityByName("valby").getCity();
-        assertEquals(expected, actual);
-
-    }
-    @Test
-    public void getCityByZipcodeTest(){
-        int expected = 3500;
-        int actual = facade.getCityByZipCode(cityInfo1.getZipCode()).getZipcode();
-        assertEquals(expected,actual);
-    }
-
-
 }
