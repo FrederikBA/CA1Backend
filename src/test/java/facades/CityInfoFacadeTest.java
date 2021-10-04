@@ -85,6 +85,12 @@ class CityInfoFacadeTest {
     public void tearDown() {
 //        Remove any data after each test was run
     }
+    @Test
+    public void getAllCityInfoTest() {
+        int expected = 3;
+        int actual = facade.getAllCityInfo().size();
+        assertEquals(expected, actual);
+    }
 
     @Test
     public void getDanishZipCodesTest(){
@@ -93,12 +99,7 @@ class CityInfoFacadeTest {
         assertEquals(expected,actual);
     }
 
-    @Test
-    public void getAllCityInfoTest() {
-        int expected = 3;
-        int actual = facade.getAllCityInfo().size();
-        assertEquals(expected, actual);
-    }
+
     @Test
     public void getCityByIdTest() {
         int expected = 3500;
@@ -113,4 +114,12 @@ class CityInfoFacadeTest {
         assertEquals(expected, actual);
 
     }
+    @Test
+    public void getCityByZipcodeTest(){
+        int expected = 3500;
+        int actual = facade.getCityByZipCode(cityInfo1.getZipCode()).getZipcode();
+        assertEquals(expected,actual);
+    }
+
+
 }

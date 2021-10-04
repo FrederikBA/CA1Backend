@@ -51,7 +51,6 @@ public class CityInfoFacade {
 
     public CityInfoDTO getCityByName(String name) {
         EntityManager em = emf.createEntityManager();
-
         try {
             TypedQuery<CityInfo> query = em.createQuery("SELECT c FROM CityInfo c WHERE c.city = :name", CityInfo.class);
             query.setParameter("name", name);
@@ -61,8 +60,7 @@ public class CityInfoFacade {
             em.close();
         }
     }
- 
-    //TODO  not able to read zipcodes numbered 0800 fix it
+
     public List<Integer> getDanishZipCodes() {
         EntityManager em = emf.createEntityManager();
         try {
@@ -74,6 +72,18 @@ public class CityInfoFacade {
         }
     }
 
+    public CityInfoDTO getCityByZipCode(int zipcode) {
+        EntityManager em = emf.createEntityManager();
+        try {
+            TypedQuery<CityInfo> query = em.createQuery("SELECT c FROM CityInfo c WHERE c.zipCode = :zipcode", CityInfo.class);
+            query.setParameter("zipcode", zipcode);
+           // List<CityInfo> cityInfoList = query.getResultList();
+            CityInfo cityInfo = query.getSingleResult();
+            return new CityInfoDTO(cityInfo);
+        } finally {
+            em.close();
+        }
+    }
 
 }
 

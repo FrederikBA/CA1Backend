@@ -3,6 +3,7 @@ package rest;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import dtos.CityInfoDTO;
+import entities.CityInfo;
 import facades.CityInfoFacade;
 import facades.PersonFacade;
 import utils.EMF_Creator;
@@ -18,11 +19,14 @@ public class CityInfoResource {
 
     private static final EntityManagerFactory EMF = EMF_Creator.createEntityManagerFactory();
 
-    private static final CityInfoFacade FACADE =  CityInfoFacade.getCityInfoFacade(EMF);
+    private static final CityInfoFacade FACADE = CityInfoFacade.getCityInfoFacade(EMF);
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
+
+    //TODO error 500 stackoverflow
     @GET
     @Produces({MediaType.APPLICATION_JSON})
-    public String getAll(){
+    @Path("getall")
+    public String getAll() {
         List<CityInfoDTO> p = FACADE.getAllCityInfo();
         return GSON.toJson(p);
     }
@@ -30,8 +34,32 @@ public class CityInfoResource {
     @GET
     @Produces("application/json")
     @Path("/danish")
-    public String getDanishZipCodes(){
+    public String getDanishZipCodes() {
         return GSON.toJson(FACADE.getDanishZipCodes());
+    }
+
+    @GET
+    @Produces("application/json")
+    @Path("/getbyid/{citybyid}")
+    public String getCityById(@PathParam("citybyid") long cityById) {
+        return GSON.toJson(FACADE.getCityById(cityById));
+    }
+
+    //TODO error 500
+    @GET
+    @Produces("application/json")
+    @Path(("getbyname"))
+    public String getCityByName(String cityName) {
+        return GSON.toJson(FACADE.getCityByName(cityName));
+    }
+
+
+    //TODO error 500
+    @GET
+    @Produces("application/json")
+    @Path("/zipcode/{zipcode}")
+    public String getCityByZipCode(@PathParam("zipcode") int zipCode) {
+        return GSON.toJson(FACADE.getCityByZipCode(zipCode));
     }
 
 
