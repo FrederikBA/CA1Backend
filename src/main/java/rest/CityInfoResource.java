@@ -27,8 +27,7 @@ public class CityInfoResource {
     @Produces({MediaType.APPLICATION_JSON})
     @Path("getall")
     public String getAll() {
-        List<CityInfoDTO> p = FACADE.getAllCityInfo();
-        return GSON.toJson(p);
+        return GSON.toJson(FACADE.getAllCityInfo());
     }
 
     @GET

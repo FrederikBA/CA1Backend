@@ -153,6 +153,16 @@ public class PersonFacade {
 
     public PersonDTO editPerson(PersonDTO personDTO) {
         EntityManager em = emf.createEntityManager();
+        EntityManager em2 = emf.createEntityManager();
+        try {
+
+            em2.getTransaction().begin();
+            Person person = em2.find(Person.class, personDTO.getId());
+            em2.createNativeQuery("DELETE FROM link_person_hobby WHERE p_id = ?").setParameter(1, person.getId()).executeUpdate();
+            em2.getTransaction().commit();
+        } finally {
+            em2.close();
+        }
 
         try {
             em.getTransaction().begin();
@@ -161,9 +171,11 @@ public class PersonFacade {
             if (person == null) {
                 throw new WebApplicationException(String.format("Person not found"));
             }
+
+
             person.setEmail(personDTO.getEmail());
             person.setFirstName(personDTO.getFirstName());
-            person.setFirstName(personDTO.getLastName());
+            person.setLastName(personDTO.getLastName());
 
             // Edit phones
 
@@ -180,7 +192,7 @@ public class PersonFacade {
             }
 
             // Edit hobbies
-            person.getHobbies().clear();
+//            person.getHobbies().clear();
 
             for (int i = 0; i < personDTO.getHobbies().size(); i++) {
                 HobbyDTO hobbyDTO = personDTO.getHobbies().get(i);
@@ -217,11 +229,7 @@ public class PersonFacade {
                 newAddress.setCityInfo(cityInfo);
                 person.setAddress(newAddress);
             }
-            em.getTransaction().begin();
-            TypedQuery<Integer> query = em.createQuery("DELETE FROM Person.hobbies h WHERE Person.id =:id", Integer.class);
-            query.setParameter("id",person.getId());
-            query.executeUpdate();
-            em.getTransaction().commit();
+
 
             em.getTransaction().begin();
             em.merge(person);
