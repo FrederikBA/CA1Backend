@@ -15,5 +15,11 @@ public class PhonesDTO {
             all.add(new PhoneDTO(p));
         });
     }
-
+    public int getSize() {
+        int counter = 0;
+        for (PhoneDTO p : all) {
+            counter++;
+        }
+        return counter;
+    }
 }
