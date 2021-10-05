@@ -17,13 +17,20 @@ public class PhoneDTO {
                 .collect(Collectors.toList());
     }
 
+    public PhoneDTO() {
+    }
+
     public PhoneDTO(Phone phone) {
         this.id = phone.getId();
         this.number = phone.getNumber();
         this.description = phone.getDescription();
     }
 
-
+    public PhoneDTO(String number, String description) {
+        this.id = -1L;
+        this.number = number;
+        this.description = description;
+    }
 
     public Long getId() {
         return id;

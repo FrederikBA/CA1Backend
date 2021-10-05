@@ -10,10 +10,19 @@ public class AddressDTO {
     private String additionalInfo;
     private CityInfoDTO cityInfo;
 
+    public AddressDTO() {
+    }
+
     public AddressDTO(Address address) {
         this.street = address.getStreet();
         this.additionalInfo = address.getAdditionalInfo();
         this.cityInfo = new CityInfoDTO(address.getCityInfo());
+    }
+
+    public AddressDTO(String street, String additionalInfo, CityInfoDTO cityInfo) {
+        this.street = street;
+        this.additionalInfo = additionalInfo;
+        this.cityInfo = cityInfo;
     }
 
     public String getStreet() {

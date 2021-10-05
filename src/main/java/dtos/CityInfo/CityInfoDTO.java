@@ -11,11 +11,19 @@ public class CityInfoDTO {
     private int zipcode;
     private String city;
 
+    public CityInfoDTO() {
+    }
 
     public CityInfoDTO(CityInfo cityInfo) {
         this.id = cityInfo.getId();
         this.zipcode = cityInfo.getZipCode();
         this.city = cityInfo.getCity();
+    }
+
+    public CityInfoDTO(int zipcode, String city) {
+        this.id = -1L;
+        this.zipcode = zipcode;
+        this.city = city;
     }
 
     public Long getId() {

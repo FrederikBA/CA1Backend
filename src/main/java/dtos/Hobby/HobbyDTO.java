@@ -20,11 +20,7 @@ public class HobbyDTO {
                 .collect(Collectors.toList());
     }
 
-    public HobbyDTO(String name, String wikiLink, String category, String type) {
-        this.name = name;
-        this.wikiLink = wikiLink;
-        this.category = category;
-        this.type = type;
+    public HobbyDTO() {
     }
 
     public HobbyDTO(Hobby hobby) {
@@ -33,6 +29,14 @@ public class HobbyDTO {
         this.wikiLink = hobby.getWikiLink();
         this.category = hobby.getCategory();
         this.type = hobby.getType();
+    }
+
+    public HobbyDTO(String name, String wikiLink, String category, String type) {
+        this.id = -1L;
+        this.name = name;
+        this.wikiLink = wikiLink;
+        this.category = category;
+        this.type = type;
     }
 
     public Long getId() {
