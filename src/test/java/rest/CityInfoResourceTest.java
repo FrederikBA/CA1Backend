@@ -55,7 +55,6 @@ class CityInfoResourceTest {
         CityInfo c2 = new CityInfo(3500, "haslev");
         CityInfo c3 = new CityInfo(4500, "hvidovre ");
         try {
-
             em.getTransaction().begin();
             em.persist(c1);
             em.persist(c2);
@@ -81,7 +80,7 @@ class CityInfoResourceTest {
             em.close();
         }
     }
-
+/*
     @Test
     public void testServerIsUp() {
         System.out.println("Testing is server up");
@@ -101,6 +100,7 @@ class CityInfoResourceTest {
                 .statusCode(200)
                 .body("size", equalTo(3));
     }
+*/
 
 }
 
