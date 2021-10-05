@@ -103,7 +103,7 @@ class PersonFacadeTest {
 
     @Test
     public void getAllPersonsTest() {
-        int expected = 2;
+        int expected = 1;
         int actual = facade.getAllPersons().getSize();
         assertEquals(expected, actual);
     }
