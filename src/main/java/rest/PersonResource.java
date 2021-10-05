@@ -64,7 +64,7 @@ public class PersonResource {
     public String getHobbyCount(@PathParam("hobby") String hobby) {
         return GSON.toJson(FACADE.getNumberOfPeopleByHobby(hobby));
     }
-
+/*
     @POST
     @Produces("application/json")
     @Consumes("application/json")
@@ -72,6 +72,14 @@ public class PersonResource {
         PersonDTO p = GSON.fromJson(person, PersonDTO.class);
         PersonDTO pNew = FACADE.addPerson(p);
         return GSON.toJson(pNew);
+    }
+*/
+
+    @POST
+    @Produces("application/json")
+    @Consumes("application/json")
+    public String testPost() {
+        return GSON.toJson("Hello World");
     }
 
     @PUT
