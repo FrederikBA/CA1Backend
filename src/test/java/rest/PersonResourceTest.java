@@ -140,7 +140,7 @@ class PersonResourceTest {
         assertThat(personsDTOs, containsInAnyOrder(p1DTO, p2DTO));
 
     }
-
+/*
     @Test
     public void addPerson() {
         Person person = new Person("addTest@mail.dk", "AddTestFirstName", "AddTestLastName");
@@ -163,7 +163,7 @@ class PersonResourceTest {
                 .body("lastName", equalTo(person.getLastName()));
 
     }
-
+*/
     @Test
     public void updatePerson() {
         PersonDTO person = new PersonDTO(person1);
