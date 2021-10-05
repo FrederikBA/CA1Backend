@@ -142,16 +142,6 @@ class PersonResourceTest {
     }
 
     @Test
-    public void testDummyMsg() throws Exception {
-        given()
-                .contentType("application/json")
-                .get("/person/").then()
-                .assertThat()
-                .statusCode(HttpStatus.OK_200.getStatusCode())
-                .body("msg", equalTo("Your Person API is up and running"));
-    }
-
-    @Test
     public void addPerson() {
         Person person = new Person("addTest@mail.dk", "AddTestFirstName", "AddTestLastName");
         Phone phone = new Phone("54347892", "TestPhone");

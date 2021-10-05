@@ -22,13 +22,7 @@ public class PersonResource {
     private static final EntityManagerFactory EMF = EMF_Creator.createEntityManagerFactory();
     private static final PersonFacade FACADE = PersonFacade.getInstance(EMF);
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
-
-    @GET
-    @Produces({MediaType.APPLICATION_JSON})
-    public String serverIsUp() {
-        return "{\"msg\":\"Your Person API is up and running\"}";
-    }
-
+    
     @GET
     @Produces("application/json")
     @Path("/all")
@@ -88,11 +82,12 @@ public class PersonResource {
         PersonDTO pEdited = FACADE.editPerson(p);
         return GSON.toJson(pEdited);
     }
+
     @GET
     @Produces("application/json")
     @Path("/numberbyhobby/{hobby}")
-    public String getNumberOfPersonsByHobby(@PathParam("hobby")String hobby) {
+    public String getNumberOfPersonsByHobby(@PathParam("hobby") String hobby) {
         long count = FACADE.getNumberOfPeopleByHobby(hobby);
-        return "{\"count\":"+count+"}";
+        return "{\"count\":" + count + "}";
     }
 }
