@@ -87,9 +87,6 @@ class CityInfoResourceTest {
         given().when().get("/cityinfo/getall").then().statusCode(200);
     }
 
-
-
-
     @Test
     public void testDanishZipCodes() {
         given()
@@ -100,7 +97,5 @@ class CityInfoResourceTest {
                 .statusCode(200)
                 .body("size", equalTo(3));
     }
-
-
 }
 
