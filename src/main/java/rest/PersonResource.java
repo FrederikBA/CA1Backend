@@ -74,6 +74,7 @@ public class PersonResource {
         return GSON.toJson(pNew);
     }
 
+
     @Path("/{id}")
     @PUT
     public String editPerson(@PathParam("id") long id, String person) {
@@ -90,4 +91,12 @@ public class PersonResource {
         long count = FACADE.getNumberOfPeopleByHobby(hobby);
         return "{\"count\":" + count + "}";
     }
+
+    @Path("/test")
+    @POST
+    @Produces({MediaType.APPLICATION_JSON})
+    public String demo() {
+        return "{\"msg\":\"Hello World\"}";
+    }
+
 }
