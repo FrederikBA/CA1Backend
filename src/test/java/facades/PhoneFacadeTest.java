@@ -78,7 +78,6 @@ class PhoneFacadeTest {
         } finally {
             em.close();
         }
-
     }
 
     @Test
