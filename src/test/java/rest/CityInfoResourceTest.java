@@ -102,6 +102,5 @@ class CityInfoResourceTest {
                 .body("size", equalTo(3));
     }
 
-
 }
 
