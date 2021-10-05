@@ -74,6 +74,16 @@ public class PersonResource {
         return GSON.toJson(pNew);
     }
 
+    @GET
+    @Produces("application/json")
+    @Consumes("application/json")
+    @Path("/add")
+    public String addPersonGet(String person) {
+        PersonDTO p = GSON.fromJson(person, PersonDTO.class);
+        PersonDTO pNew = FACADE.addPerson(p);
+        return GSON.toJson(pNew);
+    }
+
 
     @PUT
     @Path("/{id}")
