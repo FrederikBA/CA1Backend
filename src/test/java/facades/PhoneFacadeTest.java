@@ -2,10 +2,7 @@ package facades;
 
 import entities.CityInfo;
 import entities.Phone;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.*;
 import utils.EMF_Creator;
 
 import javax.persistence.EntityManager;
@@ -84,8 +81,20 @@ class PhoneFacadeTest {
 
     }
 
+    @Test
+    public void getAllPhonesTest() {
+        int expected = 3;
+        int actual = facade.getAllPhones().getSize();
+        assertEquals(expected,actual);
 
+    }
 
+    @Test
+    public void getPhoneByIdTest(){
+        String expected = "12345678";
+        String actual = facade.getPhoneById(phone1.getId()).getNumber();
+        assertEquals(expected,actual);
+    }
 
     @AfterEach
     void tearDown() {

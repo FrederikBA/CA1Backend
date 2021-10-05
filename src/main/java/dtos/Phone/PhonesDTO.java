@@ -17,6 +17,14 @@ public class PhonesDTO {
         });
     }
 
+    public int getSize() {
+        int counter = 0;
+        for (PhoneDTO p : all) {
+            counter++;
+        }
+        return counter;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -28,5 +36,6 @@ public class PhonesDTO {
     @Override
     public int hashCode() {
         return Objects.hash(all);
+
     }
 }
