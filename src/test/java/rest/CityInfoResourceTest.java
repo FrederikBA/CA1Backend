@@ -80,7 +80,7 @@ class CityInfoResourceTest {
             em.close();
         }
     }
-/*
+
     @Test
     public void testServerIsUp() {
         System.out.println("Testing is server up");
@@ -100,7 +100,7 @@ class CityInfoResourceTest {
                 .statusCode(200)
                 .body("size", equalTo(3));
     }
-*/
+
 
 }
 
