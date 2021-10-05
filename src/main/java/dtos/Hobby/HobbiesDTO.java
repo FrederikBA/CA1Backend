@@ -3,6 +3,7 @@ package dtos.Hobby;
 import entities.Hobby;
 
 import java.util.List;
+import java.util.Objects;
 
 public class HobbiesDTO {
 
@@ -27,4 +28,16 @@ public class HobbiesDTO {
                 '}';
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        HobbiesDTO that = (HobbiesDTO) o;
+        return Objects.equals(hobbies, that.hobbies);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(hobbies);
+    }
 }

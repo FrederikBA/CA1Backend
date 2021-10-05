@@ -3,6 +3,8 @@ package dtos;
 import dtos.CityInfo.CityInfoDTO;
 import entities.Address;
 
+import java.util.Objects;
+
 public class AddressDTO {
     private String street;
     private String additionalInfo;
@@ -38,4 +40,16 @@ public class AddressDTO {
         this.cityInfo = cityInfo;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        AddressDTO that = (AddressDTO) o;
+        return Objects.equals(street, that.street) && Objects.equals(additionalInfo, that.additionalInfo) && Objects.equals(cityInfo, that.cityInfo);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(street, additionalInfo, cityInfo);
+    }
 }

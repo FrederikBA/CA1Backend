@@ -3,6 +3,7 @@ package dtos.Hobby;
 import entities.Hobby;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class HobbyDTO {
@@ -72,5 +73,18 @@ public class HobbyDTO {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        HobbyDTO hobbyDTO = (HobbyDTO) o;
+        return Objects.equals(id, hobbyDTO.id) && Objects.equals(name, hobbyDTO.name) && Objects.equals(wikiLink, hobbyDTO.wikiLink) && Objects.equals(category, hobbyDTO.category) && Objects.equals(type, hobbyDTO.type);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, wikiLink, category, type);
     }
 }

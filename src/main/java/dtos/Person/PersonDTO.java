@@ -6,6 +6,7 @@ import dtos.Phone.PhoneDTO;
 import entities.Person;
 
 import java.util.List;
+import java.util.Objects;
 
 public class PersonDTO {
     private Long id;
@@ -80,5 +81,31 @@ public class PersonDTO {
 
     public void setAddress(AddressDTO address) {
         this.address = address;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PersonDTO personDTO = (PersonDTO) o;
+        return Objects.equals(id, personDTO.id) && Objects.equals(email, personDTO.email) && Objects.equals(firstName, personDTO.firstName) && Objects.equals(lastName, personDTO.lastName) && Objects.equals(hobbies, personDTO.hobbies) && Objects.equals(phones, personDTO.phones) && Objects.equals(address, personDTO.address);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, email, firstName, lastName, hobbies, phones, address);
+    }
+
+    @Override
+    public String toString() {
+        return "PersonDTO{" +
+                "id=" + id +
+                ", email='" + email + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", hobbies=" + hobbies +
+                ", phones=" + phones +
+                ", address=" + address +
+                '}';
     }
 }

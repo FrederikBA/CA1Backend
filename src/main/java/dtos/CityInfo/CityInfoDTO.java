@@ -4,6 +4,7 @@ import entities.Address;
 import entities.CityInfo;
 
 import java.util.List;
+import java.util.Objects;
 
 public class CityInfoDTO {
     private Long id;
@@ -41,4 +42,16 @@ public class CityInfoDTO {
         this.city = city;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CityInfoDTO that = (CityInfoDTO) o;
+        return zipcode == that.zipcode && Objects.equals(id, that.id) && Objects.equals(city, that.city);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, zipcode, city);
+    }
 }

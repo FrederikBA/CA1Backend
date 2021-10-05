@@ -24,9 +24,9 @@ public class PersonResource {
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
     @GET
-    @Produces("text/plain")
-    public String hello() {
-        return "Hello, World!";
+    @Produces({MediaType.APPLICATION_JSON})
+    public String serverIsUp() {
+        return "{\"msg\":\"Your Person API is up and running\"}";
     }
 
     @GET
@@ -80,7 +80,6 @@ public class PersonResource {
         return GSON.toJson(pNew);
     }
 
-    //TODO Doesn't work in Postman
     @PUT
     @Path("/{id}")
     public String editPerson(@PathParam("id") long id, String person) {
@@ -88,5 +87,12 @@ public class PersonResource {
         p.setId(id);
         PersonDTO pEdited = FACADE.editPerson(p);
         return GSON.toJson(pEdited);
+    }
+    @GET
+    @Produces("application/json")
+    @Path("/numberbyhobby/{hobby}")
+    public String getNumberOfPersonsByHobby(@PathParam("hobby")String hobby) {
+        long count = FACADE.getNumberOfPeopleByHobby(hobby);
+        return "{\"count\":"+count+"}";
     }
 }

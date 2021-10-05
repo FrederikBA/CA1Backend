@@ -7,6 +7,7 @@ import entities.Phone;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class CityInfosDTO {
 
@@ -25,5 +26,18 @@ public class CityInfosDTO {
             counter++;
         }
         return counter;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CityInfosDTO that = (CityInfosDTO) o;
+        return Objects.equals(all, that.all);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(all);
     }
 }

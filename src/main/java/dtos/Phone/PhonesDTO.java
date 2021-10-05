@@ -6,6 +6,7 @@ import entities.Phone;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class PhonesDTO {
     List<PhoneDTO> all = new ArrayList();
@@ -16,4 +17,16 @@ public class PhonesDTO {
         });
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PhonesDTO phonesDTO = (PhonesDTO) o;
+        return Objects.equals(all, phonesDTO.all);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(all);
+    }
 }

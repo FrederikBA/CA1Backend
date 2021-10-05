@@ -16,6 +16,7 @@ import javax.ws.rs.core.UriBuilder;
 import java.net.URI;
 
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.equalTo;
 
 class HobbyResourceTest {
 
@@ -42,7 +43,7 @@ class HobbyResourceTest {
         RestAssured.port = SERVER_PORT;
         RestAssured.defaultParser = Parser.JSON;
         EntityManager em = emf.createEntityManager();
-        Hobby h1 = new Hobby("test","wiki/test","konkurrence","General");
+        Hobby h1 = new Hobby("test", "wiki/test", "konkurrence", "General");
         try {
 
             em.getTransaction().begin();
@@ -51,8 +52,6 @@ class HobbyResourceTest {
         } finally {
             em.close();
         }
-
-
     }
 
     @AfterAll

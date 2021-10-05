@@ -3,6 +3,7 @@ package dtos.Phone;
 import entities.Phone;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 public class PhoneDTO {
@@ -46,5 +47,18 @@ public class PhoneDTO {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PhoneDTO phoneDTO = (PhoneDTO) o;
+        return Objects.equals(id, phoneDTO.id) && Objects.equals(number, phoneDTO.number) && Objects.equals(description, phoneDTO.description);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, number, description);
     }
 }
