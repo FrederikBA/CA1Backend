@@ -239,4 +239,17 @@ public class PersonFacade {
             em.close();
         }
     }
+
+    public String createTables() {
+        EntityManager em = emf.createEntityManager();
+        try {
+            em.getTransaction().begin();
+
+            em.getTransaction().commit();
+
+            return "Tables created";
+        } finally {
+            em.close();
+        }
+    }
 }

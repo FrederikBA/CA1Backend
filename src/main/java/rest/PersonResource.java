@@ -98,5 +98,11 @@ public class PersonResource {
     public String demo() {
         return "{\"msg\":\"Hello World\"}";
     }
+    @Path("/populate")
+    @POST
+    @Produces({MediaType.APPLICATION_JSON})
+    public String createTables() {
+        return FACADE.createTables();
+    }
 
 }
