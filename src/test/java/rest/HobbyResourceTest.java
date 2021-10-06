@@ -82,6 +82,4 @@ class HobbyResourceTest {
                 .then()
                 .statusCode(200);
     }
-
-
 }

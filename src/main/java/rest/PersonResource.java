@@ -23,76 +23,86 @@ public class PersonResource {
     private static final PersonFacade FACADE = PersonFacade.getInstance(EMF);
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
-    @GET
-    @Produces({MediaType.APPLICATION_JSON})
-    public String serverIsUp() {
-        return "{\"msg\":\"Your Person API is up and running\"}";
-    }
-
+    @Path("/all")
     @GET
     @Produces("application/json")
-    @Path("/all")
     public String getAllPersons() {
         return GSON.toJson(FACADE.getAllPersons());
     }
 
+    @Path("/{id}")
     @GET
     @Produces("application/json")
-    @Path("/{id}")
     public String getById(@PathParam("id") int id) {
         return GSON.toJson(FACADE.getPersonById(id));
     }
 
+    @Path("/hobby/{hobby}")
     @GET
     @Produces("application/json")
-    @Path("/hobby/{hobby}")
     public String getByHobby(@PathParam("hobby") String hobby) {
         return GSON.toJson(FACADE.getPersonsByHobby(hobby));
     }
 
+    @Path("/number/{number}")
     @GET
     @Produces("application/json")
-    @Path("/number/{number}")
     public String getByNumber(@PathParam("number") String number) {
         return GSON.toJson(FACADE.getPersonByPhoneNumber(number));
     }
 
+    @Path("/city/{zipCode}")
     @GET
     @Produces("application/json")
-    @Path("/city/{zipCode}")
     public String getByZip(@PathParam("zipCode") int zipCode) {
         return GSON.toJson(FACADE.getPersonsByCity(zipCode));
     }
 
+    @Path("/hobby/count/{hobby}")
     @GET
     @Produces("application/json")
-    @Path("/hobby/count/{hobby}")
     public String getHobbyCount(@PathParam("hobby") String hobby) {
         return GSON.toJson(FACADE.getNumberOfPeopleByHobby(hobby));
     }
 
     @POST
-    @Produces("application/json")
-    @Consumes("application/json")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
     public String addPerson(String person) {
         PersonDTO p = GSON.fromJson(person, PersonDTO.class);
         PersonDTO pNew = FACADE.addPerson(p);
         return GSON.toJson(pNew);
     }
 
-    @PUT
+
     @Path("/{id}")
+    @PUT
     public String editPerson(@PathParam("id") long id, String person) {
         PersonDTO p = GSON.fromJson(person, PersonDTO.class);
         p.setId(id);
         PersonDTO pEdited = FACADE.editPerson(p);
         return GSON.toJson(pEdited);
     }
+
+    @Path("/numberbyhobby/{hobby}")
     @GET
     @Produces("application/json")
-    @Path("/numberbyhobby/{hobby}")
-    public String getNumberOfPersonsByHobby(@PathParam("hobby")String hobby) {
+    public String getNumberOfPersonsByHobby(@PathParam("hobby") String hobby) {
         long count = FACADE.getNumberOfPeopleByHobby(hobby);
-        return "{\"count\":"+count+"}";
+        return "{\"count\":" + count + "}";
     }
+
+    @Path("/test")
+    @POST
+    @Produces({MediaType.APPLICATION_JSON})
+    public String demo() {
+        return "{\"msg\":\"Hello World\"}";
+    }
+    @Path("/populate")
+    @POST
+    @Produces({MediaType.APPLICATION_JSON})
+    public String createTables() {
+        return FACADE.createTables();
+    }
+
 }

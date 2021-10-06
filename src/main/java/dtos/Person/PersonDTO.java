@@ -8,6 +8,8 @@ import entities.Person;
 import java.util.List;
 import java.util.Objects;
 
+
+
 public class PersonDTO {
     private Long id;
     private String email;
@@ -25,6 +27,19 @@ public class PersonDTO {
         this.hobbies = HobbyDTO.getFromList(person.getHobbies());
         this.phones = PhoneDTO.getFromList(person.getPhones());
         this.address = new AddressDTO(person.getAddress());
+    }
+
+    public PersonDTO() {
+    }
+
+    public PersonDTO(String email, String firstName, String lastName, List<HobbyDTO> hobbies, List<PhoneDTO> phones, AddressDTO address) {
+        this.id = -1L;
+        this.email = email;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.hobbies = hobbies;
+        this.phones = phones;
+        this.address = address;
     }
 
     public Long getId() {
