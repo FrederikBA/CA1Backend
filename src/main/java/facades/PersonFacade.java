@@ -192,7 +192,7 @@ public class PersonFacade {
             }
 
             // Edit hobbies
-//            person.getHobbies().clear();
+            person.getHobbies().clear();
 
             for (int i = 0; i < personDTO.getHobbies().size(); i++) {
                 HobbyDTO hobbyDTO = personDTO.getHobbies().get(i);
