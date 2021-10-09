@@ -32,6 +32,7 @@ public class HobbyFacadeTest {
             em.getTransaction().begin();
             em.persist(h1);
             em.persist(h2);
+            em.persist(h3);
             em.getTransaction().commit();
 
         } finally {
@@ -58,7 +59,7 @@ public class HobbyFacadeTest {
 
         int actual = repo.getAllHobbies().getAll().size();
 
-        int expected = 2;
+        int expected = 3;
         assertEquals(expected, actual);
     }
 
@@ -67,7 +68,7 @@ public class HobbyFacadeTest {
         HobbyDTO hobbyDTO = new HobbyDTO(new Hobby("baseball","wiki/baseball","boldspil","idræt"));
         repo.createHobby(hobbyDTO);
 
-        int expected = 3;
+        int expected = 4;
         int actual = repo.getAllHobbies().getAll().size();
         assertEquals(expected, actual);
     }
