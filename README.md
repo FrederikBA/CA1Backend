@@ -4,6 +4,6 @@ Contributors:
 
 https://github.com/janussr
 
-https://github.com/frederik
+https://github.com/frederikba
 
 https://github.com/RasmusDH
