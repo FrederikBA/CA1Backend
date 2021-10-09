@@ -58,7 +58,7 @@ public class HobbyFacadeTest {
 
         int actual = repo.getAllHobbies().getAll().size();
 
-        int expected = 3;
+        int expected = 2;
         assertEquals(expected, actual);
     }
 
